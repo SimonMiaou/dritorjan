@@ -1,4 +1,4 @@
 .ruby-version
 .rvmrc
 
-dritorjan.sqlite3
+*.sqlite3
