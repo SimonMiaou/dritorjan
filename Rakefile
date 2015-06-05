@@ -5,5 +5,8 @@ require 'rake'
 
 task :scan do
   require 'dritorjan'
+
+  now = Time.now
   Dritorjan.scan_files('/home/simon/Desktop')
+  Dritorjan.remove_before(now)
 end

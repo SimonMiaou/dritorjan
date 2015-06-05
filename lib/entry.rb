@@ -17,6 +17,6 @@ class Entry < ActiveRecord::Base
     entry.basename = File.basename(file_path)
     entry.mtime    = stat.mtime
     entry.size     = stat.size
-    entry.save!
+    entry.touch
   end
 end

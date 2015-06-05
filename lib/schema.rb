@@ -6,6 +6,7 @@ ActiveRecord::Schema.define do
       t.string   :basename,  null: false
       t.datetime :mtime,     null: false
       t.bigint   :size,      null: false
+      t.datetime :updated_at
     end
     add_index :entries, :file_path
   end

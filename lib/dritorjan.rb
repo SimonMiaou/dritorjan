@@ -7,4 +7,8 @@ class Dritorjan
       Entry.register(file)
     end
   end
+
+  def self.remove_before(time)
+    Entry.where('updated_at < ?', time).delete_all
+  end
 end
