@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/json'
 require 'sinatra/assetpack'
 require 'slim'
 
@@ -13,5 +14,9 @@ class Webserver < Sinatra::Base
 
   get '/' do
     slim :index
+  end
+
+  get '/entries' do
+    json Entry.search(params[:q])
   end
 end
