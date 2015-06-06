@@ -12,7 +12,8 @@ task :scan do
     database: 'dritorjan-tmp.sqlite3')
   load 'schema.rb'
 
-  config = JSON.parse(File.read('config.json'))
+  config_path = File.dirname(__FILE__) + '/config.json'
+  config = JSON.parse(File.read(config_path))
   config['directories'].each do |path|
     Dritorjan.scan_files(path)
   end
