@@ -12,7 +12,6 @@ class Entry < ActiveRecord::Base
 
     entry = Entry.where(file_path: file_path).first
     entry ||= Entry.new(file_path: file_path)
-    entry.file_path = file_path
     entry.dirname   = File.dirname(file_path)
     entry.basename  = File.basename(file_path)
     entry.mtime     = stat.mtime
