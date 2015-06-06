@@ -2,3 +2,4 @@
 .rvmrc
 
 *.sqlite3
+config.json

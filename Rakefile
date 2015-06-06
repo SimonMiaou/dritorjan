@@ -13,7 +13,11 @@ task :scan do
   load 'schema.rb'
 
   now = Time.now
-  Dritorjan.scan_files('/home/simon/Desktop')
+
+  config = JSON.parse(File.read('config.json'))
+  config['directories'].each do |path|
+    Dritorjan.scan_files(path)
+  end
   # Dritorjan.remove_before(now)
 
   FileUtils.mv('dritorjan-tmp.sqlite3', 'dritorjan.sqlite3')
