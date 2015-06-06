@@ -21,6 +21,7 @@ class Entry < ActiveRecord::Base
   end
 
   def self.search(q)
+    q ||= ''
     keywords = q.gsub(/\W/, ' ').split(' ')
     where("file_path like '%#{keywords.join('%')}%'")
   end
