@@ -1,8 +1,20 @@
 doctype html
-html
+html lang='en'
   head
+    meta charset='utf-8'
     title Dritorjan
+
+    link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'
     link rel='stylesheet' href='css/application.css'
+    script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'
     script src='js/application.js'
   body
-    == yield
+
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          a.navbar-brand Tardis
+        ul.nav.navbar-nav
+
+    .container
+      == yield
