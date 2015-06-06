@@ -12,13 +12,10 @@ task :scan do
     database: 'dritorjan-tmp.sqlite3')
   load 'schema.rb'
 
-  now = Time.now
-
   config = JSON.parse(File.read('config.json'))
   config['directories'].each do |path|
     Dritorjan.scan_files(path)
   end
-  # Dritorjan.remove_before(now)
 
   FileUtils.mv('dritorjan-tmp.sqlite3', 'dritorjan.sqlite3')
 end

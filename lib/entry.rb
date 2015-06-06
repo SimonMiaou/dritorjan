@@ -9,7 +9,6 @@ class Entry < ActiveRecord::Base
   def self.register(file_path)
     file = File.new(file_path)
     stat = file.lstat
-    puts file.path
 
     entry = Entry.where(file_path: file_path).first
     entry ||= Entry.new(file_path: file_path)
