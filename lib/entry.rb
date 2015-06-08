@@ -2,7 +2,7 @@ require 'active_record'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
-  database: 'dritorjan.sqlite3')
+  database: ROOT_PATH + '/dritorjan.sqlite3')
 require 'schema'
 
 class Entry < ActiveRecord::Base
