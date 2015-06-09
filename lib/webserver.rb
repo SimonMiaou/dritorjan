@@ -17,6 +17,11 @@ class Webserver < Sinatra::Base
   end
 
   get '/entries' do
-    json Entry.search(params[:q]).order(mtime: :desc)
+    response = {
+      q:     params[:q],
+      total: Entry.search(params[:q]).size,
+      hits:  Entry.search(params[:q]).order(mtime: :desc)
+    }
+    json response
   end
 end
