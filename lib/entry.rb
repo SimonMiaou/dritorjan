@@ -1,8 +1,6 @@
 require 'active_record'
 
-ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: ROOT_PATH + '/dritorjan.sqlite3')
+ActiveRecord::Base.establish_connection(JSON.parse(File.read(ROOT_PATH + '/database.json')))
 require 'schema'
 
 class Entry < ActiveRecord::Base
@@ -22,7 +20,7 @@ class Entry < ActiveRecord::Base
   def self.search(q)
     q ||= ''
     keywords = q.gsub(/\W/, ' ').split(' ')
-    where("file_path like '%#{keywords.join('%')}%'")
+    where("LOWER(file_path) like LOWER('%#{keywords.join('%')}%')")
   end
 
   def as_json(options = {})

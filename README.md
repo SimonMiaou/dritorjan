@@ -13,3 +13,14 @@ bundle install
   "directories" : ["/path/to/scan"]
 }
 ```
+## database.json
+```json
+{
+  "adapter":  "postgresql",
+  "host":     "localhost",
+  "username": "simon",
+  "password": "",
+  "database": "dritorjan"
+}
+
+```

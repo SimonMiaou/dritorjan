@@ -9,10 +9,7 @@ task :scan do
   require 'fileutils'
   require 'dritorjan'
 
-  ActiveRecord::Base.establish_connection(
-    adapter: 'sqlite3',
-    database: ROOT_PATH + '/dritorjan-tmp.sqlite3')
-  load 'schema.rb'
+  now = Time.now
 
   config_path = ROOT_PATH + '/config.json'
   config = JSON.parse(File.read(config_path))
@@ -20,5 +17,5 @@ task :scan do
     Dritorjan.scan_files(path)
   end
 
-  FileUtils.mv(ROOT_PATH + '/dritorjan-tmp.sqlite3', ROOT_PATH + '/dritorjan.sqlite3')
+  Dritorjan.remove_before(now)
 end
