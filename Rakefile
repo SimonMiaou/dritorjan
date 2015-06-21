@@ -4,18 +4,14 @@ $LOAD_PATH.unshift(ROOT_PATH)
 $LOAD_PATH.unshift(ROOT_PATH + '/lib')
 
 require 'rake'
+require 'dritorjan'
 
 task :scan do
-  require 'fileutils'
-  require 'dritorjan'
-
   now = Time.now
-
-  config_path = ROOT_PATH + '/config.json'
-  config = JSON.parse(File.read(config_path))
-  config['directories'].each do |path|
-    Dritorjan.scan_files(path)
-  end
-
+  Dritorjan.scan_files
   Dritorjan.remove_before(now)
+end
+
+task :free_space do
+  Dritorjan.free_space
 end

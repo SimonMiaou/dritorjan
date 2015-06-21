@@ -1,6 +1,7 @@
 require 'active_record'
 
-ActiveRecord::Base.establish_connection(JSON.parse(File.read(ROOT_PATH + '/database.json')))
+ActiveRecord::Base.establish_connection(
+  JSON.parse(File.read(ROOT_PATH + '/database.json')))
 require 'schema'
 
 class Entry < ActiveRecord::Base
@@ -21,6 +22,11 @@ class Entry < ActiveRecord::Base
     q ||= ''
     keywords = q.gsub(/\W/, ' ').split(' ')
     where("LOWER(file_path) like LOWER('%#{keywords.join('%')}%')")
+  end
+
+  def delete_file
+    File.delete(file_path)
+    destroy
   end
 
   def as_json(options = {})

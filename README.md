@@ -10,7 +10,9 @@ bundle install
 ## config.json
 ```json
 {
-  "directories" : ["/path/to/scan"]
+  "directories" : ["/path/to/scan"],
+  "root_path" : "/",
+  "min_free_space" : 10000000000
 }
 ```
 ## database.json
