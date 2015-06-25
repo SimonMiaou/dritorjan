@@ -16,18 +16,18 @@ class Dritorjan
   end
 
   def self.free_space
-    while o_available < config['min_free_space'] do
+    while o_available < config['min_free_space']
       Entry.order(mtime: :asc).limit(1).first.delete_file
     end
   end
-
-  private
 
   def self.config
     return @config if @config
     config_path = ROOT_PATH + '/config.json'
     @config = JSON.parse(File.read(config_path))
   end
+
+  private
 
   def self.o_available
     stat = Sys::Filesystem.stat(config['root_path'])
