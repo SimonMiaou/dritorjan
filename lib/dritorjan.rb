@@ -21,6 +21,15 @@ class Dritorjan
     end
   end
 
+  def self.auto_remove
+    config['auto_remove'].each do |where_clause|
+      Entry.where(where_clause).each do |entry|
+        puts entry.file_path
+        entry.delete_file
+      end
+    end
+  end
+
   def self.config
     return @config if @config
     config_path = ROOT_PATH + '/config.json'
