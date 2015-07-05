@@ -12,9 +12,13 @@ html lang='en'
 
     nav.navbar.navbar-inverse.navbar-fixed-top
       .container
-        .navbar-header
-          a.navbar-brand Dritorjan
-        ul.nav.navbar-nav
+        .row
+          .col-xs-12
+            .navbar-header
+              a.navbar-brand Dritorjan
+            ul.nav.navbar-nav
 
     .container
-      == yield
+      .row
+        .col-xs-12
+          == yield
