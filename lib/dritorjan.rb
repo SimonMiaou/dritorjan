@@ -6,7 +6,10 @@ class Dritorjan
   def self.scan_files
     config['directories'].each do |path|
       FileIterator.new(path).scan do |file|
-        Entry.register(file)
+        begin
+          Entry.register(file)
+        rescue Errno::EACCES
+        end
       end
     end
   end
@@ -22,9 +25,8 @@ class Dritorjan
   end
 
   def self.auto_remove
-    config['auto_remove'].each do |where_clause|
+    Array(config['auto_remove']).each do |where_clause|
       Entry.where(where_clause).each do |entry|
-        puts entry.file_path
         entry.delete_file
       end
     end
