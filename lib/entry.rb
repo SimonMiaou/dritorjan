@@ -27,6 +27,7 @@ class Entry < ActiveRecord::Base
   def delete_file
     File.delete(file_path)
     destroy
+  rescue Errno::EACCES
   end
 
   def as_json(options = {})
