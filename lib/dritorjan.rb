@@ -8,7 +8,8 @@ class Dritorjan
       FileIterator.new(path).scan do |file|
         begin
           Entry.register(file)
-        rescue Errno::EACCES
+        rescue Errno::EACCES => e
+          Logger.new(STDOUT).info(e.message)
         end
       end
     end
@@ -26,9 +27,7 @@ class Dritorjan
 
   def self.auto_remove
     Array(config['auto_remove']).each do |where_clause|
-      Entry.where(where_clause).each do |entry|
-        entry.delete_file
-      end
+      Entry.where(where_clause).each(&:delete_file)
     end
   end
 
@@ -38,10 +37,9 @@ class Dritorjan
     @config = JSON.parse(File.read(config_path))
   end
 
-  private
-
   def self.o_available
     stat = Sys::Filesystem.stat(config['root_path'])
     stat.block_size * stat.blocks_available
   end
+  private_class_method :o_available
 end

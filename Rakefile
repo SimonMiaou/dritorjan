@@ -20,7 +20,7 @@ task :auto_remove do
   Dritorjan.auto_remove
 end
 
-task :test_auto_remove, :where_clause do |t, args|
+task :test_auto_remove, :where_clause do |_t, args|
   puts 'Following entries should be removed:'
   Entry.where(args[:where_clause]).each do |entry|
     puts entry.file_path

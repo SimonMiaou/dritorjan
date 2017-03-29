@@ -12,7 +12,7 @@ class FileIterator
       end
       remove_dir if sub_paths.empty?
     elsif file?
-      blk.call @path
+      yield @path
     end
   end
 

@@ -1,7 +1,8 @@
 require 'active_record'
 
 ActiveRecord::Base.establish_connection(
-  JSON.parse(File.read(ROOT_PATH + '/database.json')))
+  JSON.parse(File.read(ROOT_PATH + '/database.json'))
+)
 require 'schema'
 
 class Entry < ActiveRecord::Base
@@ -28,9 +29,10 @@ class Entry < ActiveRecord::Base
     File.delete(file_path)
     destroy
   rescue Errno::EACCES
+    Logger.new(STDOUT).info(e.message)
   end
 
-  def as_json(options = {})
+  def as_json(_options = {})
     {
       file_path: file_path,
       dirname:   dirname,
