@@ -1,39 +1,45 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (4.2.2)
-      activesupport (= 4.2.2)
+    activemodel (4.2.8)
+      activesupport (= 4.2.8)
       builder (~> 3.1)
-    activerecord (4.2.2)
-      activemodel (= 4.2.2)
-      activesupport (= 4.2.2)
+    activerecord (4.2.8)
+      activemodel (= 4.2.8)
+      activesupport (= 4.2.8)
       arel (~> 6.0)
-    activesupport (4.2.2)
+    activesupport (4.2.8)
       i18n (~> 0.7)
-      json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    arel (6.0.0)
+    arel (6.0.4)
     ast (2.3.0)
-    backports (3.6.4)
-    builder (3.2.2)
-    ffi (1.9.8)
-    i18n (0.7.0)
+    backports (3.7.0)
+    builder (3.2.3)
+    concurrent-ruby (1.0.5)
+    connection_pool (2.2.1)
+    et-orbi (1.0.2)
+      tzinfo
+    ffi (1.9.18)
+    hashie (3.5.5)
+    i18n (0.8.1)
     jsmin (1.0.1)
-    json (1.8.6)
-    minitest (5.7.0)
-    multi_json (1.11.1)
+    minitest (5.10.1)
+    multi_json (1.12.1)
     parser (2.4.0.0)
       ast (~> 2.2)
     powerpack (0.1.1)
-    rack (1.6.4)
+    rack (1.6.5)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rainbow (2.2.1)
-    rake (10.4.2)
+    rake (12.0.0)
+    redis (3.3.3)
+    redis-namespace (1.5.3)
+      redis (~> 3.0, >= 3.0.4)
     rubocop (0.48.0)
       parser (>= 2.3.3.1, < 3.0)
       powerpack (~> 0.1)
@@ -41,31 +47,44 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
-    sinatra (1.4.6)
-      rack (~> 1.4)
+    rufus-scheduler (3.4.0)
+      et-orbi (~> 1.0)
+    sidekiq (4.2.10)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (~> 3.2, >= 3.2.1)
+    sidekiq-scheduler (2.1.2)
+      hashie (~> 3.4)
+      redis (~> 3)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 3)
+      tilt (>= 1.4.0)
+    sinatra (1.4.8)
+      rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
-    sinatra-assetpack (0.3.3)
+    sinatra-assetpack (0.3.5)
       jsmin
       rack-test
       sinatra
       tilt (>= 1.3.0, < 2.0)
-    sinatra-contrib (1.4.4)
+    sinatra-contrib (1.4.7)
       backports (>= 2.0)
       multi_json
       rack-protection
       rack-test
       sinatra (~> 1.4.0)
       tilt (>= 1.3, < 3)
-    slim (3.0.6)
-      temple (~> 0.7.3)
+    slim (3.0.7)
+      temple (~> 0.7.6)
       tilt (>= 1.3.3, < 2.1)
-    sys-filesystem (1.1.4)
+    sys-filesystem (1.1.7)
       ffi
-    temple (0.7.6)
-    thread_safe (0.3.5)
+    temple (0.7.7)
+    thread_safe (0.3.6)
     tilt (1.4.1)
-    tzinfo (1.2.2)
+    tzinfo (1.2.3)
       thread_safe (~> 0.1)
     unicode-display_width (1.1.3)
 
@@ -76,12 +95,18 @@ DEPENDENCIES
   activerecord (~> 4.2.1)
   bundler
   rake
+  redis-namespace
   rubocop
+  sidekiq
+  sidekiq-scheduler
   sinatra (~> 1.4.6)
   sinatra-assetpack (~> 0.3.3)
   sinatra-contrib (~> 1.4.2)
   slim (~> 3.0.6)
   sys-filesystem (~> 1.1.3)
+
+RUBY VERSION
+   ruby 2.4.1p111
 
 BUNDLED WITH
    1.14.6
