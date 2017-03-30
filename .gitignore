@@ -1,6 +1,7 @@
 .ruby-version
-.rvmrc
 
 *.sqlite3
 config.json
 database.json
+
+config/settings.yml
