@@ -1,4 +1,4 @@
 :schedule:
-  hello_world:
-    every: 15s   # Runs once per minute
-    class: HelloWorld
+  steve_snapshotter:
+    class: SteveSnapshotter
+    every: 1m
