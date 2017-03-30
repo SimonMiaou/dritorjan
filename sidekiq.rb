@@ -16,5 +16,5 @@ end
 # require the jobs
 Dir.new('jobs').each do |file|
   next if file == '.' || file == '..'
-  require "jobs/#{file.to_s}"
+  require "jobs/#{file}"
 end
