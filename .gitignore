@@ -5,3 +5,4 @@ config.json
 database.json
 
 config/settings.yml
+config/sidekiq.yml
