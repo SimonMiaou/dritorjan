@@ -1,10 +1,24 @@
 # dritorjan
-Help to managing files on one of my servers
+
+Collection of utilities for my servers
+
+## Install
 
 ```
 git clone https://github.com/SimonMiaou/dritorjan.git
 cd dritorjan
 bundle install
+```
+
+
+## Configuration
+
+Update the configuration files following the examples in `config`
+
+## Background jobs
+
+```bash
+bundle exec sidekiq -r ./sidekiq_requires.rb
 ```
 
 ## config.json
