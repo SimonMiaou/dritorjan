@@ -1,6 +1,15 @@
 require_relative 'init'
-$LOAD_PATH.unshift(ROOT_PATH + '/lib')
 
-require 'webserver'
+require 'dritorjan/initializers/sidekiq'
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 
-run Webserver
+# https://github.com/mperham/sidekiq/wiki/Monitoring#standalone-with-basic-auth
+map '/sidekiq' do
+  use Rack::Auth::Basic, 'Protected Area' do |username, password|
+    Rack::Utils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(Settings.sidekiq.username)) &
+      Rack::Utils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(Settings.sidekiq.password))
+  end
+
+  run Sidekiq::Web
+end
