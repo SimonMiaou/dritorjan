@@ -8,23 +8,36 @@ module Dritorjan
 
     def perform
       ensure_directory_exist
+      ensure_subdirectory_exist
       save_current_snapshot
     end
 
     private
 
+    def now
+      @now ||= Time.now
+    end
+
+    def subdirectory
+      "#{Settings.steve_snapshotter.directory}/#{now.strftime('%Y-%m-%d')}"
+    end
+
+    def file_name
+      now.strftime('%H%M%S')
+    end
+
     def ensure_directory_exist
       Dir.mkdir(Settings.steve_snapshotter.directory) unless Dir.exist?(Settings.steve_snapshotter.directory)
     end
 
-    def save_current_snapshot
-      File.open(file_path, 'wb') do |file|
-        file << Net::HTTP.get(URI.parse(URI.escape(Settings.steve_snapshotter.url)))
-      end
+    def ensure_subdirectory_exist
+      Dir.mkdir(subdirectory) unless Dir.exist?(subdirectory)
     end
 
-    def file_path
-      "#{Settings.steve_snapshotter.directory}/#{Time.now.strftime('%Y-%m-%d-%H%M%S')}.jpg"
+    def save_current_snapshot
+      File.open("#{subdirectory}/#{file_name}.jpg", 'wb') do |file|
+        file << Net::HTTP.get(URI.parse(URI.escape(Settings.steve_snapshotter.url)))
+      end
     end
   end
 end
