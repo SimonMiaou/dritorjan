@@ -2,6 +2,7 @@ require_relative 'init'
 
 require 'dritorjan/initializers/sidekiq'
 require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 
 # https://github.com/mperham/sidekiq/wiki/Monitoring#standalone-with-basic-auth
 map '/sidekiq' do
