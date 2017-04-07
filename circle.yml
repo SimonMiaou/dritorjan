@@ -3,4 +3,4 @@ machine:
     version: 2.4.1
 test:
   post:
-    - bundle exec rubocop -a
+    - bundle exec rubocop
