@@ -99,6 +99,7 @@ DEPENDENCIES
   activerecord (~> 4.2.1)
   bundler
   config
+  minitest
   rake
   redis-namespace
   rubocop
