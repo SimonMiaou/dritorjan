@@ -10,6 +10,8 @@ module Dritorjan
       ensure_directory_exist
       ensure_subdirectory_exist
       save_current_snapshot
+    rescue Errno::ENETUNREACH
+      remove_file
     end
 
     private
@@ -23,7 +25,11 @@ module Dritorjan
     end
 
     def file_name
-      now.strftime('%H%M%S')
+      "#{now.strftime('%H%M%S')}.jpg"
+    end
+
+    def file_path
+      "#{subdirectory}/#{file_name}"
     end
 
     def ensure_directory_exist
@@ -35,9 +41,13 @@ module Dritorjan
     end
 
     def save_current_snapshot
-      File.open("#{subdirectory}/#{file_name}.jpg", 'wb') do |file|
+      File.open(file_path, 'wb') do |file|
         file << Net::HTTP.get(URI.parse(URI.escape(Settings.steve_snapshotter.url)))
       end
+    end
+
+    def remove_file
+      File.delete(file_path) if File.exist?(file_path)
     end
   end
 end
