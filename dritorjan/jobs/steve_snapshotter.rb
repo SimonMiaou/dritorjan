@@ -10,7 +10,7 @@ module Dritorjan
       ensure_directory_exist
       ensure_subdirectory_exist
       save_current_snapshot
-    rescue Errno::ENETUNREACH
+    rescue Errno::ENETUNREACH, Net::OpenTimeout
       remove_file
     end
 
@@ -25,7 +25,7 @@ module Dritorjan
     end
 
     def file_name
-      "#{now.strftime('%H%M%S')}.jpg"
+      "#{now.strftime('%H-%M-%S-%L')}.jpg"
     end
 
     def file_path
