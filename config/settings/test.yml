@@ -1,0 +1,3 @@
+steve_snapshotter:
+  directory: ./tmp/steve-snapshots
+  url: http://uri-to-steve/?action=snapshot

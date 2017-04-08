@@ -1,5 +1,5 @@
 :schedule:
   steve_snapshotter:
-    class: Dritorjan::SteveSnapshotter
+    class: Dritorjan::Jobs::SteveSnapshotter
     description: Take a snapshot of Steve and save the file
     every: ['1m', first_in: '0s']
