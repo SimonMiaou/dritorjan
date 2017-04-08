@@ -1,8 +1,7 @@
-.ruby-version
-
 *.sqlite3
+.ruby-version
 config.json
-database.json
-
 config/settings.yml
 config/sidekiq.yml
+database.json
+tmp
