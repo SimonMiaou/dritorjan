@@ -9,6 +9,10 @@ module Jobs
       @file_path = "#{Settings.steve_snapshotter.directory}/#{@now.strftime('%Y-%m-%d')}/#{@now.strftime('%H-%M-%S-%L')}.jpg"
     end
 
+    def teardown
+      FileUtils.rm_rf(Settings.steve_snapshotter.directory)
+    end
+
     def test_download_steve_snapshot
       stub(Time).now { @now }
       stub_request(:get, Settings.steve_snapshotter.url).to_return(body: @steve_raw)

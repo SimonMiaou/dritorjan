@@ -1,3 +1,5 @@
+oioioi:
+  directory: ./oioioi
 sidekiq:
   username: ''
   password: ''
