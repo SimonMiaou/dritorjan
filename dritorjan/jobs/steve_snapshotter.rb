@@ -12,7 +12,7 @@ module Dritorjan
         ensure_subdirectory_exist
         save_current_snapshot
       rescue Errno::ENETUNREACH, Net::OpenTimeout
-        remove_file
+        remove_file_if_exists
       end
 
       private
@@ -42,12 +42,13 @@ module Dritorjan
       end
 
       def save_current_snapshot
+        file_body = Net::HTTP.get(URI.parse(Settings.steve_snapshotter.url))
         File.open(file_path, 'wb') do |file|
-          file << Net::HTTP.get(URI.parse(Settings.steve_snapshotter.url))
+          file << file_body
         end
       end
 
-      def remove_file
+      def remove_file_if_exists
         File.delete(file_path) if File.exist?(file_path)
       end
     end
