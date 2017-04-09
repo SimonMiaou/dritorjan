@@ -1,3 +1,4 @@
+require 'dritorjan'
 require 'dritorjan/initializers/sidekiq'
 require 'net/http'
 require 'nokogiri'
@@ -21,6 +22,8 @@ module Dritorjan
           ensure_directory_exist(File.dirname(file_path))
           download_file(mp3_url, file_path)
         end
+      rescue Net::OpenTimeout => e
+        Dritorjan.logger.error(e.message)
       end
 
       private
@@ -37,6 +40,7 @@ module Dritorjan
       end
 
       def download_file(url, file_path)
+        Dritorjan.logger.info("Downloading #{url}")
         file_body = Net::HTTP.get(URI.parse(URI.escape(url)))
         File.open(file_path, 'wb') do |file|
           file << file_body

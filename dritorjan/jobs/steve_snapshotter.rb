@@ -1,3 +1,4 @@
+require 'dritorjan'
 require 'dritorjan/initializers/sidekiq'
 require 'net/http'
 require 'uri'
@@ -11,8 +12,8 @@ module Dritorjan
         ensure_directory_exist
         ensure_subdirectory_exist
         save_current_snapshot
-      rescue Errno::ENETUNREACH, Net::OpenTimeout
-        remove_file_if_exists
+      rescue Errno::ENETUNREACH, Net::OpenTimeout => e
+        Dritorjan.logger.error(e.message)
       end
 
       private
@@ -46,10 +47,6 @@ module Dritorjan
         File.open(file_path, 'wb') do |file|
           file << file_body
         end
-      end
-
-      def remove_file_if_exists
-        File.delete(file_path) if File.exist?(file_path)
       end
     end
   end
