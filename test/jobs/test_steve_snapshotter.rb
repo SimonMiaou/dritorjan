@@ -4,11 +4,13 @@ require 'dritorjan/jobs/steve_snapshotter'
 module Jobs
   class TestSteveSnapshotter < Minitest::Test
     def setup
+      super
       @now = Time.now
       @file_path = "#{Settings.steve_snapshotter.directory}/#{@now.strftime('%Y-%m-%d')}/#{@now.strftime('%H-%M-%S-%L')}.jpg"
     end
 
     def teardown
+      super
       FileUtils.rm_rf(Settings.steve_snapshotter.directory)
     end
 
