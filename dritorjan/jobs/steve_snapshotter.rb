@@ -44,9 +44,7 @@ module Dritorjan
 
       def save_current_snapshot
         file_body = Net::HTTP.get(URI.parse(Settings.steve_snapshotter.url))
-        File.open(file_path, 'wb') do |file|
-          file << file_body
-        end
+        File.open(file_path, 'wb') { |file| file << file_body }
       end
     end
   end
