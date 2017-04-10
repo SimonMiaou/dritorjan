@@ -1,3 +1,5 @@
+oioioi:
+  directory: ./tmp/oioioi
 steve_snapshotter:
   directory: ./tmp/steve-snapshots
   url: http://uri-to-steve/?action=snapshot

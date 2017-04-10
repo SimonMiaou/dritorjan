@@ -1,4 +1,8 @@
 :schedule:
+  oioioi_downloader:
+    class: Dritorjan::Jobs::OioioiDownloader
+    description: Download mp3s from oioioi.ru
+    every: ['1d', first_in: '0s']
   steve_snapshotter:
     class: Dritorjan::Jobs::SteveSnapshotter
     description: Take a snapshot of Steve and save the file

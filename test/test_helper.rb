@@ -9,3 +9,6 @@ WebMock.enable!
 
 Config.load_and_set_settings(Config.setting_files('./config', 'test'))
 Dir.mkdir('./tmp') unless Dir.exist?('./tmp')
+
+require 'dritorjan'
+Dritorjan.logger = Logger.new('/dev/null')
