@@ -15,6 +15,17 @@ bundle install
 
 Update the configuration files following the examples in `config`
 
+## Database
+
+```bash
+# Create tables
+bundle exec rake database:create_tables
+# Remove tables
+bundle exec rake database:drop_tables
+# Reset tables
+bundle exec rake database:reset
+```
+
 ## Background jobs
 
 ```bash
