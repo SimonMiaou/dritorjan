@@ -12,7 +12,7 @@ module Dritorjan
         ensure_directory_exist
         ensure_subdirectory_exist
         save_current_snapshot
-      rescue Errno::ENETUNREACH, Errno::EHOSTUNREACH, Net::OpenTimeout => e
+      rescue Errno::EHOSTUNREACH, Errno::ENETUNREACH, Net::OpenTimeout => e
         Dritorjan.logger.error(e.message)
       end
 
