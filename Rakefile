@@ -11,6 +11,11 @@ Rake::TestTask.new do |t|
 end
 
 namespace :database do
+  task :create do
+    require 'dritorjan/database'
+    Dritorjan::Database.create_database
+  end
+
   task :create_tables do
     require 'dritorjan/database'
     Dritorjan::Database.connect
