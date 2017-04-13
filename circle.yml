@@ -3,7 +3,7 @@ machine:
     version: 2.4.1
 database:
   override:
-    - mv config/database.example.yml config/database.yml
+    - mv config/database.ci.yml config/database.yml
 test:
   post:
     - bundle exec rubocop
