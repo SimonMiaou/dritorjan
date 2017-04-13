@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: dritorjan_development
+
+test:
+  adapter: postgresql
+  database: dritorjan_test

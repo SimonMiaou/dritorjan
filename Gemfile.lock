@@ -1,23 +1,21 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (4.2.8)
-      activesupport (= 4.2.8)
-      builder (~> 3.1)
-    activerecord (4.2.8)
-      activemodel (= 4.2.8)
-      activesupport (= 4.2.8)
-      arel (~> 6.0)
-    activesupport (4.2.8)
+    activemodel (5.0.2)
+      activesupport (= 5.0.2)
+    activerecord (5.0.2)
+      activemodel (= 5.0.2)
+      activesupport (= 5.0.2)
+      arel (~> 7.0)
+    activesupport (5.0.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
-      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    arel (6.0.4)
+    arel (7.1.4)
     ast (2.3.0)
-    builder (3.2.3)
     concurrent-ruby (1.0.5)
     config (1.4.0)
       activesupport (>= 3.0)
@@ -28,6 +26,8 @@ GEM
     deep_merge (1.1.1)
     et-orbi (1.0.3)
       tzinfo
+    faker (1.7.3)
+      i18n (~> 0.5)
     ffi (1.9.18)
     hashdiff (0.3.2)
     hashie (3.5.5)
@@ -38,6 +38,7 @@ GEM
       mini_portile2 (~> 2.1.0)
     parser (2.4.0.0)
       ast (~> 2.2)
+    pg (0.20.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
     rack (2.0.1)
@@ -76,8 +77,8 @@ GEM
     tilt (2.0.7)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
-    unicode-display_width (1.2.0)
-    webmock (2.3.2)
+    unicode-display_width (1.2.1)
+    webmock (3.0.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -86,18 +87,20 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (~> 4.2.1)
+  activerecord
   bundler
   config
+  faker
   minitest
   nokogiri
+  pg
   rake
   redis-namespace
   rr
   rubocop
   sidekiq
   sidekiq-scheduler
-  sys-filesystem (~> 1.1.3)
+  sys-filesystem
   webmock
 
 RUBY VERSION
