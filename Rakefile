@@ -28,7 +28,7 @@ namespace :database do
     Dritorjan::Database.drop_tables
   end
 
-  task :reset do
+  task :reset_tables do
     require 'dritorjan/database'
     Dritorjan::Database.connect
     Dritorjan::Database.drop_tables
