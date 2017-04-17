@@ -5,15 +5,22 @@ ruby '2.4.1'
 gem 'activerecord'
 gem 'bundler'
 gem 'config'
-gem 'faker'
-gem 'minitest'
 gem 'nokogiri'
 gem 'pg'
 gem 'rake'
 gem 'redis-namespace'
-gem 'rr'
 gem 'rubocop', require: false
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'sys-filesystem'
-gem 'webmock'
+
+group :development, :test do
+  gem 'byebug'
+end
+
+group :test do
+  gem 'faker'
+  gem 'minitest'
+  gem 'rr'
+  gem 'webmock'
+end
