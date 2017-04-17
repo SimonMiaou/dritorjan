@@ -8,19 +8,14 @@ module Dritorjan
       self.table_name = :entries
       self.primary_key = :path
 
+      belongs_to :parent, class_name: 'DirEntry', foreign_key: :dirname
+
       def self.register(path)
-        path = File.realpath(path)
-        file = File.new(path)
-        stat = file.lstat
-
-        child_class = Dir.exist?(path) ? DirEntry : FileEntry
-
-        entry = child_class.find_or_initialize_by(path: path)
-        entry.update(dirname: File.dirname(path),
-                     basename: File.basename(path),
-                     mtime: stat.mtime,
-                     size: stat.size)
-        entry
+        if Dir.exist?(path)
+          DirEntry.register(path)
+        else
+          FileEntry.register(path)
+        end
       end
 
       def dir?
@@ -33,6 +28,20 @@ module Dritorjan
     end
 
     class DirEntry < Entry
+      has_many :entries, foreign_key: :dirname
+
+      def self.register(path)
+        path = File.realpath(path)
+        file = File.new(path)
+
+        entry = find_or_initialize_by(path: path)
+        entry.size ||= 0
+        entry.update(dirname: File.dirname(path),
+                     basename: File.basename(path),
+                     mtime: file.lstat.mtime)
+        entry
+      end
+
       def register_content
         entries = Dir.entries(path).reject { |path| path == '.' || path == '..' }
 
@@ -44,6 +53,18 @@ module Dritorjan
     end
 
     class FileEntry < Entry
+      def self.register(path)
+        path = File.realpath(path)
+        file = File.new(path)
+        stat = file.lstat
+
+        entry = find_or_initialize_by(path: path)
+        entry.update(dirname: File.dirname(path),
+                     basename: File.basename(path),
+                     mtime: stat.mtime,
+                     size: stat.size)
+        entry
+      end
     end
   end
 end
