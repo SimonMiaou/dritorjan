@@ -44,27 +44,18 @@ module Dritorjan
                                basename: 'tmp',
                                mtime: Time.now,
                                size: 0)
-        file_foo = FileEntry.create!(path: "#{root_path}/tmp/foo.txt",
-                                     dirname: dir.path,
-                                     basename: 'foo.txt',
-                                     mtime: Time.now,
-                                     size: rand(999))
-        file_bar = FileEntry.create!(path: "#{root_path}/tmp/bar.txt",
-                                     dirname: dir.path,
-                                     basename: 'bar.txt',
-                                     mtime: Time.now,
-                                     size: rand(999))
 
-        dir_size = file_foo.size + file_bar.size
-        assert_equal dir_size, dir.reload.size, 'update the size when entries are created'
+        mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
+        file = FileEntry.create!(path: "#{root_path}/tmp/foo.txt",
+                                 dirname: dir.path,
+                                 basename: 'foo.txt',
+                                 mtime: Time.now,
+                                 size: rand(999))
 
-        file_foo.update(size: rand(999))
-        dir_size = file_foo.size + file_bar.size
-        assert_equal dir_size, dir.reload.size, 'update the size when an entry size is updated'
+        mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
+        file.update(size: rand(999))
 
-        dir.update(size: 0)
-        file_bar.update(mtime: Time.now - 1.hour)
-        assert_equal 0, dir.reload.size, 'doesn\'t update the size when updating any other attributes of an entry'
+        file.update(mtime: Time.now - 1.hour)
       end
 
       private

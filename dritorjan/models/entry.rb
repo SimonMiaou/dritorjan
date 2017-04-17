@@ -1,4 +1,5 @@
 require 'dritorjan/database'
+require 'dritorjan/jobs/directory_size_updater'
 
 Dritorjan::Database.connect
 
@@ -37,7 +38,7 @@ module Dritorjan
       private
 
       def update_parent_size
-        parent.update!(size: parent.entries.pluck(:size).sum) if @size_changed && parent.present?
+        Jobs::DirectorySizeUpdater.perform_async(dirname) if @size_changed && parent.present?
       end
     end
 
