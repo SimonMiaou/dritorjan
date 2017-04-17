@@ -38,7 +38,7 @@ module Dritorjan
       private
 
       def update_parent_size
-        Jobs::DirectorySizeUpdater.perform_async(dirname) if @size_changed && parent.present?
+        Jobs::DirectorySizeUpdater.perform_async(dirname) if defined?(@size_changed) && @size_changed && parent.present?
       end
     end
 
