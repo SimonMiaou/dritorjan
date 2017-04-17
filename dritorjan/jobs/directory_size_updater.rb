@@ -1,6 +1,5 @@
 require 'dritorjan'
 require 'dritorjan/initializers/sidekiq'
-require 'dritorjan/models/entry'
 
 module Dritorjan
   module Jobs
