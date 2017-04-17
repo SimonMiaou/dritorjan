@@ -8,7 +8,6 @@ module Dritorjan
       self.table_name = :entries
       self.primary_key = :path
 
-
       def self.register(path)
         path = File.realpath(path)
         puts "Register #{path}"
