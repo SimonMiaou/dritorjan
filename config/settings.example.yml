@@ -1,3 +1,7 @@
+file_manager:
+  directories:
+    - ./tmp
+    - /home/user/downloads
 oioioi:
   directory: ./oioioi
 sidekiq:

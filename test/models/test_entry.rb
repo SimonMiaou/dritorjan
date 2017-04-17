@@ -7,7 +7,7 @@ module Dritorjan
       def setup
         super
 
-        @dirname = './tmp'
+        @dirname = File.realpath('./tmp')
         @basename = 'test_entry_file.txt'
         @file_path = "#{@dirname}/#{@basename}"
 
@@ -46,6 +46,47 @@ module Dritorjan
       def create_default_file
         @file_content = Faker::Cat.name
         File.open(@file_path, 'wb') { |file| file << @file_content }
+      end
+    end
+
+    class TestDirEntry < Minitest::Test
+      def setup
+        super
+
+        @dir_path = './tmp/file_manager'
+
+        Entry.destroy_all
+        reset_test_files
+
+        @dir_path = File.realpath(@dir_path)
+      end
+
+      def test_register_content
+        dir = Dritorjan::Models::Entry.register(@dir_path)
+        dir.register_content
+
+        entries_paths = ["#{@dir_path}/foo.txt", "#{@dir_path}/bar.txt", "#{@dir_path}/sub"]
+        assert_equal entries_paths.sort, dir.entries.pluck(:path).sort
+
+        entry = Entry.find "#{@dir_path}/sub/file.txt"
+        assert_equal "#{@dir_path}/sub", entry.parent.path
+        assert_equal @dir_path, entry.parent.parent.path
+      end
+
+      private
+
+      def reset_test_files
+        FileUtils.rm_rf(@dir_path)
+        Dir.mkdir(@dir_path)
+
+        create_file("#{@dir_path}/foo.txt")
+        create_file("#{@dir_path}/bar.txt")
+        Dir.mkdir("#{@dir_path}/sub")
+        create_file("#{@dir_path}/sub/file.txt")
+      end
+
+      def create_file(file_path)
+        File.open(file_path, 'wb') { |file| file << Faker::Cat.name }
       end
     end
   end
