@@ -7,17 +7,13 @@ module Dritorjan
       def setup
         super
 
-        @dirname = File.realpath('./tmp')
-        @basename = 'test_entry_file.txt'
-        @file_path = "#{@dirname}/#{@basename}"
-
         Entry.destroy_all
       end
 
       def test_register_an_entry_with_the_file_informations
         create_default_file
 
-        Dritorjan::Models::Entry.register(@file_path)
+        Entry.register(@file_path)
 
         entry = Entry.first
         assert_equal @file_path, entry.path
@@ -30,20 +26,54 @@ module Dritorjan
         assert_equal 0, Entry.count
 
         create_default_file
-        Dritorjan::Models::Entry.register(@file_path)
+        Entry.register(@file_path)
         assert_equal 1, Entry.count, 'create the entry'
 
         create_default_file
-        Dritorjan::Models::Entry.register(@file_path)
+        Entry.register(@file_path)
         assert_equal 1, Entry.count, 'doesnt create another entry'
 
         entry = Entry.first
         assert_equal @file_content.size, entry.size, 'size match the new content'
       end
 
+      def test_update_size_of_parent_when_size_change
+        root_path = File.realpath('.')
+        dir = DirEntry.create!(path: "#{root_path}/tmp",
+                               dirname: '/Users/simon/Github/SimonMiaou/dritorjan',
+                               basename: 'tmp',
+                               mtime: Time.now,
+                               size: 0)
+        file_foo = FileEntry.create!(path: "#{root_path}/tmp/foo.txt",
+                                     dirname: dir.path,
+                                     basename: 'foo.txt',
+                                     mtime: Time.now,
+                                     size: rand(999))
+        file_bar = FileEntry.create!(path: "#{root_path}/tmp/bar.txt",
+                                     dirname: dir.path,
+                                     basename: 'bar.txt',
+                                     mtime: Time.now,
+                                     size: rand(999))
+
+        dir_size = file_foo.size + file_bar.size
+        assert_equal dir_size, dir.reload.size, 'update the size when entries are created'
+
+        file_foo.update(size: rand(999))
+        dir_size = file_foo.size + file_bar.size
+        assert_equal dir_size, dir.reload.size, 'update the size when an entry size is updated'
+
+        dir.update(size: 0)
+        file_bar.update(mtime: Time.now - 1.hour)
+        assert_equal 0, dir.reload.size, 'doesn\'t update the size when updating any other attributes of an entry'
+      end
+
       private
 
       def create_default_file
+        @dirname = File.realpath('./tmp')
+        @basename = 'test_entry_file.txt'
+        @file_path = "#{@dirname}/#{@basename}"
+
         @file_content = Faker::Cat.name
         File.open(@file_path, 'wb') { |file| file << @file_content }
       end
@@ -62,7 +92,7 @@ module Dritorjan
       end
 
       def test_register_content
-        dir = Dritorjan::Models::Entry.register(@dir_path)
+        dir = Entry.register(@dir_path)
         dir.register_content
 
         entries_paths = ["#{@dir_path}/foo.txt", "#{@dir_path}/bar.txt", "#{@dir_path}/sub"]

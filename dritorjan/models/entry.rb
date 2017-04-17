@@ -10,6 +10,14 @@ module Dritorjan
 
       belongs_to :parent, class_name: 'DirEntry', foreign_key: :dirname
 
+      validates :path, :dirname, :basename, :mtime, :size, presence: true
+
+      after_commit :update_parent_size
+      before_save do
+        @size_changed = size_changed?
+        true
+      end
+
       def self.register(path)
         if Dir.exist?(path)
           DirEntry.register(path)
@@ -25,6 +33,12 @@ module Dritorjan
       def file?
         is_a? FileEntry
       end
+
+      private
+
+      def update_parent_size
+        parent.update!(size: parent.entries.pluck(:size).sum) if @size_changed && parent.present?
+      end
     end
 
     class DirEntry < Entry
@@ -32,13 +46,12 @@ module Dritorjan
 
       def self.register(path)
         path = File.realpath(path)
-        file = File.new(path)
 
         entry = find_or_initialize_by(path: path)
         entry.size ||= 0
         entry.update(dirname: File.dirname(path),
                      basename: File.basename(path),
-                     mtime: file.lstat.mtime)
+                     mtime: File.mtime(path))
         entry
       end
 
@@ -55,14 +68,12 @@ module Dritorjan
     class FileEntry < Entry
       def self.register(path)
         path = File.realpath(path)
-        file = File.new(path)
-        stat = file.lstat
 
         entry = find_or_initialize_by(path: path)
         entry.update(dirname: File.dirname(path),
                      basename: File.basename(path),
-                     mtime: stat.mtime,
-                     size: stat.size)
+                     mtime: File.mtime(path),
+                     size: File.size(path))
         entry
       end
     end

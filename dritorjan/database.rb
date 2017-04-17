@@ -15,9 +15,9 @@ module Dritorjan
     def self.create_tables
       ActiveRecord::Schema.define do
         create_table :entries, id: false, primary_key: :path do |t|
-          t.string :path, null: false
+          t.string :path, primary_key: true
           t.string :type, null: false
-          t.string :dirname, null: false
+          t.string :dirname, null: false, index: true
           t.string :basename, null: false
           t.datetime :mtime, null: false
           t.bigint :size, null: false

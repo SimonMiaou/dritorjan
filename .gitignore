@@ -6,3 +6,5 @@ config/settings.yml
 config/sidekiq.yml
 database.json
 tmp
+
+.byebug_history

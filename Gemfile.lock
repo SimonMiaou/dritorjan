@@ -16,6 +16,7 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
     ast (2.3.0)
+    byebug (9.0.6)
     concurrent-ruby (1.0.5)
     config (1.4.0)
       activesupport (>= 3.0)
@@ -89,6 +90,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   bundler
+  byebug
   config
   faker
   minitest
