@@ -10,11 +10,12 @@ module Dritorjan
 
       def self.register(path)
         path = File.realpath(path)
-        puts "Register #{path}"
         file = File.new(path)
         stat = file.lstat
 
-        entry = Entry.find_or_initialize_by(path: path)
+        child_class = Dir.exist?(path) ? DirEntry : FileEntry
+
+        entry = child_class.find_or_initialize_by(path: path)
         entry.update(dirname: File.dirname(path),
                      basename: File.basename(path),
                      mtime: stat.mtime,
@@ -23,13 +24,15 @@ module Dritorjan
       end
 
       def dir?
-        Dir.exist?(path)
+        is_a? DirEntry
       end
 
       def file?
-        File.exist?(path)
+        is_a? FileEntry
       end
+    end
 
+    class DirEntry < Entry
       def register_content
         entries = Dir.entries(path).reject { |path| path == '.' || path == '..' }
 
@@ -38,6 +41,9 @@ module Dritorjan
           entry.register_content if entry.dir?
         end
       end
+    end
+
+    class FileEntry < Entry
     end
   end
 end

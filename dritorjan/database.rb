@@ -16,6 +16,7 @@ module Dritorjan
       ActiveRecord::Schema.define do
         create_table :entries, id: false, primary_key: :path do |t|
           t.string :path, null: false
+          t.string :type, null: false
           t.string :dirname, null: false
           t.string :basename, null: false
           t.datetime :mtime, null: false
