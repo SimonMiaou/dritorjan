@@ -1,7 +1,11 @@
 development:
   adapter: postgresql
   database: dritorjan_development
+  pool: 30
+  reaping_frequency: 60
 
 test:
   adapter: postgresql
   database: dritorjan_test
+  pool: 30
+  reaping_frequency: 60

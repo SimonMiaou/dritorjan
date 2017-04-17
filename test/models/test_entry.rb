@@ -7,7 +7,7 @@ module Dritorjan
       def setup
         super
 
-        @dirname = './tmp'
+        @dirname = File.realpath('./tmp')
         @basename = 'test_entry_file.txt'
         @file_path = "#{@dirname}/#{@basename}"
 

@@ -1,4 +1,8 @@
 :schedule:
+  files_scanner:
+    class: Dritorjan::Jobs::FilesScanner
+    description: Scan folders and register files
+    every: ['1h', first_in: '0s']
   oioioi_downloader:
     class: Dritorjan::Jobs::OioioiDownloader
     description: Download mp3s from oioioi.ru

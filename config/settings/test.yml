@@ -1,3 +1,6 @@
+file_manager:
+  directories:
+    - ./tmp
 oioioi:
   directory: ./tmp/oioioi
 steve_snapshotter:
