@@ -53,10 +53,12 @@ module Dritorjan
       def setup
         super
 
-        @dir_path = File.realpath('./tmp/file_manager')
+        @dir_path = './tmp/file_manager'
 
         Entry.destroy_all
         reset_test_files
+
+        @dir_path = File.realpath(@dir_path)
       end
 
       def test_register_content
