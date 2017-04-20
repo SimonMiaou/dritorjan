@@ -46,8 +46,7 @@ module Dritorjan
 
       def test_update_size_of_parent_when_size_change
         root_path = File.realpath('.')
-        dir = create(:dir_entry, path: "#{root_path}/tmp",
-                                 size: 0)
+        dir = create(:dir_entry, path: "#{root_path}/tmp", size: 0)
 
         mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
         file = create(:file_entry, path: "#{root_path}/tmp/foo.txt")
