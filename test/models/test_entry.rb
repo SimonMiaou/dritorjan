@@ -55,6 +55,9 @@ module Dritorjan
         file.update(size: rand(999))
 
         file.update(mtime: Time.now - 1.hour)
+
+        mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
+        file.destroy
       end
 
       def test_register_update_scanned_at

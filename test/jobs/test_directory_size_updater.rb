@@ -21,6 +21,10 @@ module Dritorjan
         DirectorySizeUpdater.new.perform dir.path
         assert_equal (file_foo.size + file_bar.size), dir.reload.size
       end
+
+      def test_doesnt_fail_if_directory_doesnt_exist
+        DirectorySizeUpdater.new.perform Faker::File.file_name(File.realpath('./tmp'))
+      end
     end
   end
 end
