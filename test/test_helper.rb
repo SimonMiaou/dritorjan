@@ -4,6 +4,7 @@ require_relative '../init'
 require 'minitest/autorun'
 require 'rr'
 require 'faker'
+require 'byebug'
 
 require 'webmock/minitest'
 WebMock.enable!

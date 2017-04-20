@@ -11,6 +11,12 @@ module Dritorjan
         Entry.destroy_all
       end
 
+      def test_factory_set_dirname_and_basename
+        entry = create(:entry, path: '/home/user/.bash_profile')
+        assert_equal '/home/user', entry.dirname
+        assert_equal '.bash_profile', entry.basename
+      end
+
       def test_register_an_entry_with_the_file_informations
         create_default_file
 
@@ -41,14 +47,10 @@ module Dritorjan
       def test_update_size_of_parent_when_size_change
         root_path = File.realpath('.')
         dir = create(:dir_entry, path: "#{root_path}/tmp",
-                                 dirname: '/Users/simon/Github/SimonMiaou/dritorjan',
-                                 basename: 'tmp',
                                  size: 0)
 
         mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
-        file = create(:file_entry, path: "#{root_path}/tmp/foo.txt",
-                                   dirname: dir.path,
-                                   basename: 'foo.txt')
+        file = create(:file_entry, path: "#{root_path}/tmp/foo.txt")
 
         mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
         file.update(size: rand(999))
