@@ -27,6 +27,8 @@ GEM
     deep_merge (1.1.1)
     et-orbi (1.0.3)
       tzinfo
+    factory_girl (4.8.0)
+      activesupport (>= 3.0.0)
     faker (1.7.3)
       i18n (~> 0.5)
     ffi (1.9.18)
@@ -92,6 +94,7 @@ DEPENDENCIES
   bundler
   byebug
   config
+  factory_girl
   faker
   minitest
   nokogiri

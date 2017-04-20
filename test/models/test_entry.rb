@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'dritorjan/models/entry'
+require 'factories/entry'
 
 module Dritorjan
   module Models
@@ -39,20 +40,15 @@ module Dritorjan
 
       def test_update_size_of_parent_when_size_change
         root_path = File.realpath('.')
-        dir = DirEntry.create!(path: "#{root_path}/tmp",
-                               dirname: '/Users/simon/Github/SimonMiaou/dritorjan',
-                               basename: 'tmp',
-                               mtime: Time.now,
-                               size: 0,
-                               scanned_at: Time.now)
+        dir = create(:dir_entry, path: "#{root_path}/tmp",
+                                 dirname: '/Users/simon/Github/SimonMiaou/dritorjan',
+                                 basename: 'tmp',
+                                 size: 0)
 
         mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
-        file = FileEntry.create!(path: "#{root_path}/tmp/foo.txt",
-                                 dirname: dir.path,
-                                 basename: 'foo.txt',
-                                 mtime: Time.now,
-                                 size: rand(999),
-                                 scanned_at: Time.now)
+        file = create(:file_entry, path: "#{root_path}/tmp/foo.txt",
+                                   dirname: dir.path,
+                                   basename: 'foo.txt')
 
         mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
         file.update(size: rand(999))
