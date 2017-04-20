@@ -11,7 +11,7 @@ module Dritorjan
 
       belongs_to :parent, class_name: 'DirEntry', foreign_key: :dirname
 
-      validates :path, :dirname, :basename, :mtime, :size, presence: true
+      validates :path, :dirname, :basename, :mtime, :size, :scanned_at, presence: true
 
       after_commit :update_parent_size
       before_save do
@@ -52,7 +52,8 @@ module Dritorjan
         entry.size ||= 0
         entry.update(dirname: File.dirname(path),
                      basename: File.basename(path),
-                     mtime: File.mtime(path))
+                     mtime: File.mtime(path),
+                     scanned_at: Time.now)
         entry
       end
 
@@ -74,7 +75,8 @@ module Dritorjan
         entry.update(dirname: File.dirname(path),
                      basename: File.basename(path),
                      mtime: File.mtime(path),
-                     size: File.size(path))
+                     size: File.size(path),
+                     scanned_at: Time.now)
         entry
       end
     end

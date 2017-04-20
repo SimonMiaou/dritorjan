@@ -43,19 +43,32 @@ module Dritorjan
                                dirname: '/Users/simon/Github/SimonMiaou/dritorjan',
                                basename: 'tmp',
                                mtime: Time.now,
-                               size: 0)
+                               size: 0,
+                               scanned_at: Time.now)
 
         mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
         file = FileEntry.create!(path: "#{root_path}/tmp/foo.txt",
                                  dirname: dir.path,
                                  basename: 'foo.txt',
                                  mtime: Time.now,
-                                 size: rand(999))
+                                 size: rand(999),
+                                 scanned_at: Time.now)
 
         mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
         file.update(size: rand(999))
 
         file.update(mtime: Time.now - 1.hour)
+      end
+
+      def test_register_update_scanned_at
+        create_default_file
+        entry = Entry.register(@file_path)
+
+        assert entry.scanned_at, 'set scanned_at'
+        scanned_at = entry.scanned_at
+
+        entry = Entry.register(@file_path)
+        refute_equal scanned_at, entry.scanned_at, 'update the scanned_at'
       end
 
       private

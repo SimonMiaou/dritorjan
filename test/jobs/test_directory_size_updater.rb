@@ -16,17 +16,20 @@ module Dritorjan
                                        dirname: '/Users/simon/Github/SimonMiaou/dritorjan',
                                        basename: 'tmp',
                                        mtime: Time.now,
-                                       size: 0)
+                                       size: 0,
+                                       scanned_at: Time.now)
         file_foo = Models::FileEntry.create!(path: "#{root_path}/tmp/foo.txt",
                                              dirname: dir.path,
                                              basename: 'foo.txt',
                                              mtime: Time.now,
-                                             size: rand(999))
+                                             size: rand(999),
+                                             scanned_at: Time.now)
         file_bar = Models::FileEntry.create!(path: "#{root_path}/tmp/bar.txt",
                                              dirname: dir.path,
                                              basename: 'bar.txt',
                                              mtime: Time.now,
-                                             size: rand(999))
+                                             size: rand(999),
+                                             scanned_at: Time.now)
 
         assert_equal 0, dir.reload.size
         DirectorySizeUpdater.new.perform dir.path
