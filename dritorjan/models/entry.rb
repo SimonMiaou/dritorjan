@@ -19,6 +19,8 @@ module Dritorjan
         true
       end
 
+      scope :old, -> { where('scanned_at < ?', Settings.file_manager.old_entries_threshold_in_minutes.minutes.ago) }
+
       def self.register(path)
         if Dir.exist?(path)
           DirEntry.register(path)
