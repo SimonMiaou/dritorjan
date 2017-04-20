@@ -1,7 +1,7 @@
 file_manager:
   directories:
     - ./tmp
-  old_entries_threshold_in_minutes: 90
+  old_entries_threshold_in_minutes: 60
 oioioi:
   directory: ./tmp/oioioi
 steve_snapshotter:

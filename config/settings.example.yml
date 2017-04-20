@@ -2,7 +2,7 @@ file_manager:
   directories:
     - ./tmp
     - /home/user/downloads
-  old_entries_threshold_in_minutes: 90
+  old_entries_threshold_in_minutes: 60
 oioioi:
   directory: ./oioioi
 sidekiq:
