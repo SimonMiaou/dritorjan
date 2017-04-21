@@ -32,6 +32,12 @@ bundle exec rake database:reset_tables
 bundle exec sidekiq -r ./sidekiq_requires.rb
 ```
 
+## Web interface
+
+```bash
+bundle exec rackup -o 0.0.0.0
+```
+
 ## config.json
 ```json
 {

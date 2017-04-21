@@ -21,6 +21,7 @@ module Dritorjan
           t.string :basename, null: false
           t.datetime :mtime, null: false
           t.bigint :size, null: false
+          t.timestamp :scanned_at, null: false
         end
         add_index :entries, :path
       end

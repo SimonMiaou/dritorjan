@@ -11,13 +11,15 @@ module Dritorjan
 
       belongs_to :parent, class_name: 'DirEntry', foreign_key: :dirname
 
-      validates :path, :dirname, :basename, :mtime, :size, presence: true
+      validates :path, :dirname, :basename, :mtime, :size, :scanned_at, presence: true
 
       after_commit :update_parent_size
       before_save do
         @size_changed = size_changed?
         true
       end
+
+      scope :old, -> { where('scanned_at < ?', Settings.file_manager.old_entries_threshold_in_minutes.minutes.ago) }
 
       def self.register(path)
         if Dir.exist?(path)
@@ -38,7 +40,7 @@ module Dritorjan
       private
 
       def update_parent_size
-        Jobs::DirectorySizeUpdater.perform_async(dirname) if defined?(@size_changed) && @size_changed && parent.present?
+        Jobs::DirectorySizeUpdater.perform_async(dirname) if destroyed? || defined?(@size_changed) && @size_changed && parent.present?
       end
     end
 
@@ -52,7 +54,8 @@ module Dritorjan
         entry.size ||= 0
         entry.update(dirname: File.dirname(path),
                      basename: File.basename(path),
-                     mtime: File.mtime(path))
+                     mtime: File.mtime(path),
+                     scanned_at: Time.now)
         entry
       end
 
@@ -74,7 +77,8 @@ module Dritorjan
         entry.update(dirname: File.dirname(path),
                      basename: File.basename(path),
                      mtime: File.mtime(path),
-                     size: File.size(path))
+                     size: File.size(path),
+                     scanned_at: Time.now)
         entry
       end
     end
