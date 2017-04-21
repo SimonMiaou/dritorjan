@@ -45,18 +45,17 @@ module Dritorjan
       end
 
       def test_update_size_of_parent_when_size_change
-        root_path = File.realpath('.')
-        dir = create(:dir_entry, path: "#{root_path}/tmp", size: 0)
+        dirname = File.realpath('./tmp')
 
-        mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
-        file = create(:file_entry, path: "#{root_path}/tmp/foo.txt")
+        mock(Jobs::DirectorySizeUpdater).perform_async(dirname)
+        file = create(:file_entry, path: "#{dirname}/foo.txt")
 
-        mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
+        mock(Jobs::DirectorySizeUpdater).perform_async(dirname)
         file.update(size: rand(999))
 
         file.update(mtime: Time.now - 1.hour)
 
-        mock(Jobs::DirectorySizeUpdater).perform_async(dir.path)
+        mock(Jobs::DirectorySizeUpdater).perform_async(dirname)
         file.destroy
       end
 
@@ -105,6 +104,14 @@ module Dritorjan
         entry = Entry.find "#{@dir_path}/sub/file.txt"
         assert_equal "#{@dir_path}/sub", entry.parent.path
         assert_equal @dir_path, entry.parent.parent.path
+      end
+
+      def test_update_size_from_entries_when_created
+        entry_foo = create(:file_entry)
+        entry_bar = create(:file_entry, dirname: entry_foo.dirname)
+        parent = Entry.register(entry_foo.dirname)
+
+        assert_equal (entry_foo.size + entry_bar.size), parent.size, 'size is the sum of entries sizes'
       end
 
       private

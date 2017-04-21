@@ -37,26 +37,30 @@ module Dritorjan
         is_a? FileEntry
       end
 
+      def register_parent
+        self.class.register(dirname)
+      end
+
       private
 
       def update_parent_size
-        Jobs::DirectorySizeUpdater.perform_async(dirname) if destroyed? || defined?(@size_changed) && @size_changed && parent.present?
+        Jobs::DirectorySizeUpdater.perform_async(dirname) if destroyed? || defined?(@size_changed) && @size_changed
       end
     end
 
     class DirEntry < Entry
-      has_many :entries, foreign_key: :dirname
+      has_many :entries, -> { where.not(path: '/') }, foreign_key: :dirname
 
       def self.register(path)
         path = File.realpath(path)
 
-        entry = find_or_initialize_by(path: path)
-        entry.size ||= 0
-        entry.update(dirname: File.dirname(path),
-                     basename: File.basename(path),
-                     mtime: File.mtime(path),
-                     scanned_at: Time.now)
-        entry
+        dir_entry = find_or_initialize_by(path: path)
+        dir_entry.size ||= dir_entry.entries.sum(:size)
+        dir_entry.update(dirname: File.dirname(path),
+                         basename: File.basename(path),
+                         mtime: File.mtime(path),
+                         scanned_at: Time.now)
+        dir_entry
       end
 
       def register_content
@@ -73,13 +77,13 @@ module Dritorjan
       def self.register(path)
         path = File.realpath(path)
 
-        entry = find_or_initialize_by(path: path)
-        entry.update(dirname: File.dirname(path),
-                     basename: File.basename(path),
-                     mtime: File.mtime(path),
-                     size: File.size(path),
-                     scanned_at: Time.now)
-        entry
+        file_entry = find_or_initialize_by(path: path)
+        file_entry.update(dirname: File.dirname(path),
+                          basename: File.basename(path),
+                          mtime: File.mtime(path),
+                          size: File.size(path),
+                          scanned_at: Time.now)
+        file_entry
       end
     end
   end

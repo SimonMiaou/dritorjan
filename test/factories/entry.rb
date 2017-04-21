@@ -12,7 +12,7 @@ FactoryGirl.define do
 
     after(:build) do |entry|
       regex = %r{(.*)/([^/]+)\z}
-      entry.path ||= Faker::File.file_name(File.realpath('./tmp'))
+      entry.path ||= Faker::File.file_name(entry.dirname || File.realpath('./tmp'))
       entry.dirname = entry.path.match(regex)[1]
       entry.basename = entry.path.match(regex)[2]
     end

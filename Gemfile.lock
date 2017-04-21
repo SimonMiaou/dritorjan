@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/bbatsov/rubocop.git
-  revision: ee21b4bcd874dc3cf9a7ffd6fc2b1686aefd0b06
+  revision: 9168e82c449bf275b4ce587ac01efff25bf80cc2
   specs:
     rubocop (0.48.1)
       parallel (~> 1.10)
@@ -60,7 +60,8 @@ GEM
     rack (2.0.1)
     rack-protection (1.5.3)
       rack
-    rainbow (2.2.1)
+    rainbow (2.2.2)
+      rake
     rake (12.0.0)
     redis (3.3.3)
     redis-namespace (1.5.3)
