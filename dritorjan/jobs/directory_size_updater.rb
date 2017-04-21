@@ -8,7 +8,7 @@ module Dritorjan
 
       def perform(path)
         dir = Models::DirEntry.find path
-        dir.update!(size: dir.entries.pluck(:size).sum)
+        dir.update!(size: dir.entries.sum(:size))
       rescue ActiveRecord::RecordNotFound => e
         Dritorjan.logger.error(e.message)
       end
