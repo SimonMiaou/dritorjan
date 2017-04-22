@@ -11,6 +11,8 @@ gem 'rake'
 gem 'redis-namespace'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'sinatra'
+gem 'slim'
 gem 'sys-filesystem'
 
 group :development, :test do
