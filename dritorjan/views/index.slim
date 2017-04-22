@@ -1,0 +1,9 @@
+h2 = @entry.path
+
+hr
+
+- if @entry.dir?
+  == slim :dir_entry, locals: { entry: @entry }
+
+- if @entry.file?
+  == slim :file_entry, locals: { entry: @entry }

@@ -1,6 +1,7 @@
 require_relative 'init'
 
 require 'dritorjan/initializers/sidekiq'
+require 'dritorjan/web_app'
 require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
@@ -13,3 +14,5 @@ map '/sidekiq' do
 
   run Sidekiq::Web
 end
+
+run Dritorjan::WebApp
