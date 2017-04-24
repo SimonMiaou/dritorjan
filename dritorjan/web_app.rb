@@ -7,6 +7,18 @@ require 'addressable'
 module Dritorjan
   class WebApp < Sinatra::Base
     helpers do
+      def breadcrumb(entry)
+        b = ''
+
+        while entry.path != '/'
+          link = "<a href=\"#{Addressable::URI.encode(entry.path)}\">#{entry.basename}</a>"
+          b = "#{link}/#{b}"
+          entry = entry.parent
+        end
+
+        "/#{b}"
+      end
+
       def format_size(size)
         if size > 1_000_000_000
           size = (size.to_f / 1_000_000_000).round(2)
