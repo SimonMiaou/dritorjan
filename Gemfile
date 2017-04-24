@@ -4,6 +4,7 @@ ruby '2.4.1'
 
 gem 'activerecord'
 gem 'bundler'
+gem 'addressable'
 gem 'config'
 gem 'nokogiri'
 gem 'pg'

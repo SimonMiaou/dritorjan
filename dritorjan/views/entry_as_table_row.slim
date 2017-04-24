@@ -1,4 +1,4 @@
 tr
   td
-    a href=entry.path = entry.basename
+    a href=Addressable::URI.encode(entry.path) = entry.basename
   td = entry.size
