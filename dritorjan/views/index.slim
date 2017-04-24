@@ -4,6 +4,5 @@ hr
 
 - if @entry.dir?
   == slim :dir_entry, locals: { entry: @entry }
-
-- if @entry.file?
+- elsif @entry.file?
   == slim :file_entry, locals: { entry: @entry }

@@ -3,6 +3,11 @@ table
     td
       a href=entry.dirname ..
     td
+    td
 
   - entry.entries.find_each do |sub_entry|
-    == slim :entry_as_table_row, locals: { entry: sub_entry }
+    tr
+      td
+        a href=Addressable::URI.encode(sub_entry.path) = sub_entry.basename
+      td = sub_entry.size
+      td = sub_entry.mtime
