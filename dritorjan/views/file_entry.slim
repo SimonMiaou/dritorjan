@@ -1,1 +1,15 @@
-a href=entry.dirname Back
+a href=Addressable::URI.encode(entry.dirname) Back
+
+dl
+  dt path
+  dd = entry.path
+  dt dirname
+  dd = entry.dirname
+  dt basename
+  dd = entry.basename
+  dt mtime
+  dd = entry.mtime
+  dt size
+  dd = format_size(entry.size)
+  dt scanned_at
+  dd = entry.scanned_at
