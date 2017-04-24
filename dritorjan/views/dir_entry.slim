@@ -1,13 +1,17 @@
 table
   tr
+    td align='center' entries
+    td align='center' size
+    td align='center' mtime
+  tr
     td
-      a href=entry.dirname ..
-    td
-    td
+      a href=Addressable::URI.encode(entry.parent.path) ..
+    td align='right' = format_size(entry.parent.size)
+    td align='center' = entry.parent.mtime
 
   - entry.entries.find_each do |sub_entry|
     tr
       td
         a href=Addressable::URI.encode(sub_entry.path) = sub_entry.basename
-      td = sub_entry.size
-      td = sub_entry.mtime
+      td align='right' = format_size(sub_entry.size)
+      td align='center' = sub_entry.mtime
