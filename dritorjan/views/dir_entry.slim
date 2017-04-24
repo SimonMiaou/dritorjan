@@ -3,11 +3,13 @@ table
     td align='center' entries
     td align='center' size
     td align='center' mtime
-  tr
-    td
-      a href=Addressable::URI.encode(entry.parent.path) ..
-    td
-    td
+
+  - if entry.path != '/'
+    tr
+      td
+        a href=Addressable::URI.encode(entry.parent.path) ..
+      td
+      td
 
   - entry.entries.find_each do |sub_entry|
     tr
