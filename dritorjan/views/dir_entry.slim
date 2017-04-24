@@ -6,8 +6,8 @@ table
   tr
     td
       a href=Addressable::URI.encode(entry.parent.path) ..
-    td align='right' = format_size(entry.parent.size)
-    td align='center' = entry.parent.mtime
+    td
+    td
 
   - entry.entries.find_each do |sub_entry|
     tr
