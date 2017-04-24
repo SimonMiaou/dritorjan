@@ -12,11 +12,11 @@ module Dritorjan
 
         while entry.path != '/'
           link = "<a href=\"#{Addressable::URI.encode(entry.path)}\">#{entry.basename}</a>"
-          b = "#{link}/#{b}"
+          b = "/#{link}#{b}"
           entry = entry.parent
         end
 
-        "/#{b}"
+        b
       end
 
       def format_size(size)
