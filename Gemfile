@@ -15,6 +15,7 @@ gem 'sidekiq-scheduler'
 gem 'sinatra'
 gem 'slim'
 gem 'sys-filesystem'
+gem 'unix-crypt'
 
 group :development, :test do
   gem 'byebug'
