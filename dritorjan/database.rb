@@ -23,13 +23,19 @@ module Dritorjan
           t.bigint :size, null: false
           t.timestamp :scanned_at, null: false
         end
-        add_index :entries, :path
+
+        create_table :users, id: false, primary_key: :login do |t|
+          t.string :login, primary_key: true
+          t.string :full_name, null: false
+          t.string :password, null: false
+        end
       end
     end
 
     def self.drop_tables
       ActiveRecord::Schema.define do
         drop_table :entries if table_exists? :entries
+        drop_table :users if table_exists? :users
       end
     end
 

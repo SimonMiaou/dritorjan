@@ -1,4 +1,4 @@
-require 'dritorjan/models/entry'
+require 'dritorjan/models/user'
 
 FactoryGirl.define do
   factory :user, class: 'Dritorjan::Models::User' do
