@@ -1,3 +1,6 @@
+require 'dritorjan/helpers/authentication'
+require 'dritorjan/helpers/format'
+require 'dritorjan/helpers/view_helpers'
 require 'dritorjan/models/entry'
 require 'dritorjan/models/user'
 require 'sinatra'
@@ -9,38 +12,9 @@ module Dritorjan
   class WebApp < Sinatra::Base
     enable :sessions
 
-    helpers do
-      def breadcrumb(entry)
-        b = ''
-
-        while entry.path != '/'
-          link = "<a href=\"#{Addressable::URI.encode(entry.path)}\">#{entry.basename}</a>"
-          b = "/#{link}#{b}"
-          entry = entry.parent
-        end
-
-        b
-      end
-
-      def format_size(size)
-        if size > 1_000_000_000
-          size = (size.to_f / 1_000_000_000).round(2)
-          "#{size} Go"
-        elsif size > 1_000_000
-          size = (size.to_f / 1_000_000).round(2)
-          "#{size} Mo"
-        elsif size > 1_000
-          size = (size.to_f / 1_000).round(2)
-          "#{size} Ko"
-        else
-          "#{size} o"
-        end
-      end
-
-      def authenticate!
-        redirect to('/login') unless session[:current_login].present?
-      end
-    end
+    helpers Helpers::Authentication
+    helpers Helpers::Format
+    helpers Helpers::ViewHelpers
 
     get '/login' do
       slim :login
