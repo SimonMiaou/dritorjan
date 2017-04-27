@@ -4,4 +4,8 @@ html
     title Dritorjan
   body
     h1 Dritorjan
+
+    - if current_user?
+      a href='/logout' Logout
+
     == yield

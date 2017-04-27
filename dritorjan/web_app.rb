@@ -31,6 +31,11 @@ module Dritorjan
       end
     end
 
+    get '/logout' do
+      session[:current_login] = nil
+      redirect to('/login')
+    end
+
     get(/\A(.*)\z/) do
       authenticate!
 
