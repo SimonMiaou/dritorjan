@@ -35,3 +35,8 @@ namespace :database do
     Dritorjan::Database.create_tables
   end
 end
+
+task :import_users_from_shadow_file do
+  require 'dritorjan/models/user'
+  Dritorjan::Models::User.import_from_shadow_file
+end
