@@ -7,7 +7,7 @@ module Dritorjan
       def setup
         super
 
-        @now = Time.now.utc
+        @now = Time.now
         @file_path = "#{Settings.steve_snapshotter.directory}/#{@now.strftime('%Y-%m-%d')}/#{@now.strftime('%H-%M-%S-%L')}.jpg"
 
         FileUtils.rm_rf(Settings.steve_snapshotter.directory)
@@ -16,7 +16,7 @@ module Dritorjan
       def test_download_steve_snapshot
         steve_raw = File.read('./test/fixtures/steve.png')
 
-        stub(Time).now { @now }
+        stub(Time).now.mock(@now).utc { @now }
         stub_request(:get, Settings.steve_snapshotter.url).to_return(body: steve_raw)
 
         SteveSnapshotter.new.perform
@@ -26,7 +26,7 @@ module Dritorjan
       end
 
       def test_remove_the_snapshot_when_an_exception_is_raised
-        stub(Time).now { @now }
+        stub(Time).now.mock(@now).utc { @now }
         mock(Net::HTTP).get(URI.parse(Settings.steve_snapshotter.url)) { raise Errno::ENETUNREACH }
 
         SteveSnapshotter.new.perform
