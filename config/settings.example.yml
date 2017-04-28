@@ -5,9 +5,6 @@ file_manager:
   old_entries_threshold_in_minutes: 60
 oioioi:
   directory: ./oioioi
-sidekiq:
-  username: ''
-  password: ''
 steve_snapshotter:
   directory: ./steve-snapshots
   url: http://uri-to-steve/?action=snapshot
