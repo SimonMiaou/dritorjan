@@ -7,7 +7,7 @@ module Dritorjan
       def setup
         super
 
-        @now = Time.now
+        @now = Time.now.utc
         @file_path = "#{Settings.steve_snapshotter.directory}/#{@now.strftime('%Y-%m-%d')}/#{@now.strftime('%H-%M-%S-%L')}.jpg"
 
         FileUtils.rm_rf(Settings.steve_snapshotter.directory)
