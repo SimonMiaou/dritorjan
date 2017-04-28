@@ -19,7 +19,7 @@ module Dritorjan
       private
 
       def now
-        @now ||= Time.now
+        @now ||= Time.now.utc
       end
 
       def subdirectory
