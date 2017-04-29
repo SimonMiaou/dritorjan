@@ -10,7 +10,7 @@ require 'addressable'
 
 module Dritorjan
   class WebApp < Sinatra::Base
-    enable :sessions
+    use Rack::Session::Pool
 
     helpers Helpers::Authentication
     helpers Helpers::Format

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/bbatsov/rubocop.git
-  revision: 0fe3f3326bd45b34b3268b90c5aa8e9501fb53ac
+  revision: 8b0229f9e3062db1263e593145abaff6d68d5b66
   specs:
     rubocop (0.48.1)
       parallel (~> 1.10)
@@ -13,20 +13,20 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (5.0.2)
-      activesupport (= 5.0.2)
-    activerecord (5.0.2)
-      activemodel (= 5.0.2)
-      activesupport (= 5.0.2)
-      arel (~> 7.0)
-    activesupport (5.0.2)
+    activemodel (5.1.0)
+      activesupport (= 5.1.0)
+    activerecord (5.1.0)
+      activemodel (= 5.1.0)
+      activesupport (= 5.1.0)
+      arel (~> 8.0)
+    activesupport (5.1.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    arel (7.1.4)
+    arel (8.0.0)
     ast (2.3.0)
     byebug (9.0.6)
     concurrent-ruby (1.0.5)
@@ -57,6 +57,7 @@ GEM
     pg (0.20.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
+    puma (3.8.2)
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
@@ -117,6 +118,7 @@ DEPENDENCIES
   minitest
   nokogiri
   pg
+  puma
   rake
   redis-namespace
   rr
