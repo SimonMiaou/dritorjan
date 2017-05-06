@@ -4,6 +4,7 @@ module Dritorjan
   module Helpers
     module Authentication
       def authenticate!
+        session[:last_path] = request.fullpath
         redirect to('/login') unless session[:current_login].present?
       end
 

@@ -7,13 +7,13 @@ table
   - if entry.path != '/'
     tr
       td
-        a href=Addressable::URI.encode(entry.parent.path) ..
+        a href=entry_url(entry.parent) ..
       td
       td
 
   - entry.entries.find_each do |sub_entry|
     tr
       td
-        a href=Addressable::URI.encode(sub_entry.path) = sub_entry.basename
+        a href=entry_url(sub_entry) = sub_entry.basename
       td align='right' = format_size(sub_entry.size)
       td align='center' = sub_entry.mtime
