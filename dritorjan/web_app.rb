@@ -29,7 +29,7 @@ module Dritorjan
 
       if user.present? && user.password_match?(params['password'])
         session[:current_login] = user.login
-        redirect to('/')
+        redirect to(session[:last_path] || '/')
       else
         redirect to('/login')
       end
