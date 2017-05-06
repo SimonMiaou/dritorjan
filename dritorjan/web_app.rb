@@ -16,6 +16,10 @@ module Dritorjan
     helpers Helpers::Format
     helpers Helpers::ViewHelpers
 
+    get '/' do
+      redirect to('/entries/')
+    end
+
     get '/login' do
       slim :login
     end
@@ -36,11 +40,11 @@ module Dritorjan
       redirect to('/login')
     end
 
-    get(/\A(.*)\z/) do
+    get(/\A\/entries(\/(.*))\z/) do
       authenticate!
 
       @entry = Models::Entry.find params['captures'].first
-      slim :index
+      slim :entry
     end
   end
 end

@@ -5,12 +5,16 @@ module Dritorjan
         b = ''
 
         while entry.path != '/'
-          link = "<a href=\"#{Addressable::URI.encode(entry.path)}\">#{entry.basename}</a>"
+          link = "<a href=\"#{entry_url(entry)}\">#{entry.basename}</a>"
           b = "/#{link}#{b}"
           entry = entry.parent
         end
 
         b
+      end
+
+      def entry_url(entry)
+        "/entries#{Addressable::URI.encode(entry.path)}"
       end
     end
   end
