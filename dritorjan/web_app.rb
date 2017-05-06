@@ -40,7 +40,7 @@ module Dritorjan
       redirect to('/login')
     end
 
-    get(/\A\/entries(\/(.*))\z/) do
+    get(%r{\A/entries(/(.*))\z}) do
       authenticate!
 
       @entry = Models::Entry.find params['captures'].first
