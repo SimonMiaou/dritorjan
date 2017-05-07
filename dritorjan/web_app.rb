@@ -45,7 +45,7 @@ module Dritorjan
     get(%r{/entries(/(.*))}) do
       authenticate!
 
-      @entry = Models::Entry.find params['captures'].first
+      @entry = Models::Entry.find Addressable::URI.unencode(params['captures'].first)
       slim :entry
     end
   end
