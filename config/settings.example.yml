@@ -3,6 +3,7 @@ file_manager:
     - ./tmp
     - /home/user/downloads
   old_entries_threshold_in_minutes: 60
+host: localhost
 oioioi:
   directory: ./oioioi
 steve_snapshotter:

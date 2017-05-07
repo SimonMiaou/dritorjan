@@ -1,3 +1,5 @@
+require 'shellwords'
+
 module Dritorjan
   module Helpers
     module ViewHelpers
@@ -11,6 +13,16 @@ module Dritorjan
         end
 
         b
+      end
+
+      def build_scp_command(entry)
+        escaped_path = Shellwords.escape(Shellwords.escape(entry.path))
+
+        command = ['scp']
+        command << '-r' if entry.dir?
+        command << "#{current_user.login}@#{Settings.host}:#{escaped_path}"
+        command << './'
+        command.join(' ')
       end
 
       def entry_url(entry)
