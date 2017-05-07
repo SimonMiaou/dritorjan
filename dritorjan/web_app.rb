@@ -12,6 +12,8 @@ module Dritorjan
   class WebApp < Sinatra::Base
     use Rack::Session::Pool
 
+    set :public_folder, 'dritorjan/public'
+
     helpers Helpers::Authentication
     helpers Helpers::Format
     helpers Helpers::ViewHelpers
@@ -40,7 +42,7 @@ module Dritorjan
       redirect to('/login')
     end
 
-    get(%r{\A/entries(/(.*))\z}) do
+    get(%r{/entries(/(.*))}) do
       authenticate!
 
       @entry = Models::Entry.find params['captures'].first
