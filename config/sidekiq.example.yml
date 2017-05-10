@@ -3,6 +3,10 @@
     class: Dritorjan::Jobs::FilesScanner
     description: Scan folders and register files
     every: ['1h', first_in: '0s']
+  empty_directories_remover:
+    class: Dritorjan::Jobs::EmptyDirectoriesRemover
+    description: Remove empty directories
+    every: ['1h', first_in: '0s']
   entries_cleaner:
     class: Dritorjan::Jobs::EntriesCleaner
     description: Remove old entries
