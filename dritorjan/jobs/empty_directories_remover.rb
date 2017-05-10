@@ -15,16 +15,23 @@ module Dritorjan
       private
 
       def remove_empty_directories(directory_path)
-        entries = Dir.entries(directory_path).reject { |path| path == '.' || path == '..' }
+        scan_for_empty_sub_directories(directory_path)
+        remove_if_empty(directory_path)
+      end
 
-        if entries.empty? && !Settings.file_manager.directories.include?(directory_path)
-          Dir.rmdir directory_path
-        else
-          entries.each do |entry|
-            entry_path = "#{directory_path}/#{entry}"
-            remove_empty_directories(entry_path) if Dir.exist?(entry_path)
-          end
+      def scan_for_empty_sub_directories(directory_path)
+        entries_for(directory_path).each do |entry|
+          entry_path = "#{directory_path}/#{entry}"
+          remove_empty_directories(entry_path) if Dir.exist?(entry_path)
         end
+      end
+
+      def remove_if_empty(directory_path)
+        Dir.rmdir directory_path if entries_for(directory_path).empty? && !Settings.file_manager.directories.include?(directory_path)
+      end
+
+      def entries_for(directory_path)
+        Dir.entries(directory_path).reject { |path| path == '.' || path == '..' }
       end
     end
   end
