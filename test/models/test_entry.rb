@@ -130,5 +130,28 @@ module Dritorjan
         File.open(file_path, 'wb') { |file| file << Faker::Cat.name }
       end
     end
+
+    class TestFileEntry < Minitest::Test
+      def test_delete_file
+        Entry.destroy_all
+
+        create_file('./tmp/foo.txt')
+        foo = Entry.register('./tmp/foo.txt')
+        create_file('./tmp/bar.txt')
+        bar = Entry.register('./tmp/bar.txt')
+
+        foo.delete_file
+
+        refute File.exist?(foo.path)
+        assert_equal 1, Entry.count
+        assert_equal bar.path, Entry.first.path
+      end
+
+      private
+
+      def create_file(file_path)
+        File.open(file_path, 'wb') { |file| file << Faker::Cat.name }
+      end
+    end
   end
 end
