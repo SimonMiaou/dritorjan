@@ -3,38 +3,10 @@ require 'file_iterator'
 require 'sys/filesystem'
 
 class Dritorjan
-  def self.scan_files
-    config['directories'].each do |path|
-      FileIterator.new(path).scan do |file|
-        begin
-          Entry.register(file)
-        rescue Errno::EACCES => e
-          Logger.new(STDOUT).info(e.message)
-        end
-      end
-    end
-  end
-
-  def self.remove_before(time)
-    Entry.where('updated_at < ?', time).delete_all
-  end
-
   def self.free_space
     while o_available < config['min_free_space']
       Entry.order(mtime: :asc).limit(1).first.delete_file
     end
-  end
-
-  def self.auto_remove
-    Array(config['auto_remove']).each do |where_clause|
-      Entry.where(where_clause).each(&:delete_file)
-    end
-  end
-
-  def self.config
-    return @config if @config
-    config_path = ROOT_PATH + '/config.json'
-    @config = JSON.parse(File.read(config_path))
   end
 
   def self.o_available
