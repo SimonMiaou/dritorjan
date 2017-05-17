@@ -30,7 +30,7 @@ module Dritorjan
         blocks_availables << blocks_available - 1 # not enough space
         blocks_availables << blocks_available + rand(2) # enough space
 
-        mock(Sys::Filesystem).stat('/').times(blocks_availables.size) do
+        mock(Sys::Filesystem).stat('./tmp').times(blocks_availables.size) do
           OpenStruct.new(block_size: block_size,
                          blocks_available: blocks_availables.shift)
         end
@@ -45,7 +45,7 @@ module Dritorjan
       def test_doesnt_infinite_loop_if_no_more_file
         entry = create(:file_entry, path: create_file)
 
-        mock(Sys::Filesystem).stat('/').times(2) { OpenStruct.new(block_size: 8, blocks_available: 0) }
+        mock(Sys::Filesystem).stat('./tmp').times(2) { OpenStruct.new(block_size: 8, blocks_available: 0) }
 
         FilesRemover.new.perform
 
@@ -59,7 +59,7 @@ module Dritorjan
                                     size: rand(999))
 
         blocks_available = Settings.file_manager.min_free_space / block_size
-        mock(Sys::Filesystem).stat('/') { OpenStruct.new(block_size: block_size, blocks_available: blocks_available) }
+        mock(Sys::Filesystem).stat('./tmp') { OpenStruct.new(block_size: block_size, blocks_available: blocks_available) }
 
         FilesRemover.new.perform
 

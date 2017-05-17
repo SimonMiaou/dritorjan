@@ -3,6 +3,7 @@ file_manager:
     - ./tmp
   min_free_space: 10_737_418_240 # 10 Go in octets
   old_entries_threshold_in_minutes: 60
+  root_directory: ./tmp
 oioioi:
   directory: ./tmp/oioioi
 steve_snapshotter:
