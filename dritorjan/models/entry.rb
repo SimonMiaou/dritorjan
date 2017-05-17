@@ -85,6 +85,11 @@ module Dritorjan
                           scanned_at: Time.now)
         file_entry
       end
+
+      def delete_file
+        File.delete path
+        destroy
+      end
     end
   end
 end

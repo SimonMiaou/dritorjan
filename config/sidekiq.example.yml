@@ -1,4 +1,8 @@
 :schedule:
+  files_remover:
+    class: Dritorjan::Jobs::FilesRemover
+    description: Delete files to free disk space
+    every: ['1h', first_in: '0s']
   files_scanner:
     class: Dritorjan::Jobs::FilesScanner
     description: Scan folders and register files
