@@ -2,7 +2,7 @@ file_manager:
   directories:
     - ./tmp
     - /home/user/downloads
-  min_free_space: 10737418240 # 10 Go in octets
+  min_free_space: 10_737_418_240 # 10 Go in octets
   old_entries_threshold_in_minutes: 60
   root_directory: /
 host: localhost
