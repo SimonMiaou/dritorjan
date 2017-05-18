@@ -15,13 +15,13 @@ module Dritorjan
 
       def test_delete_files_to_free_space
         oldest_entry = create(:file_entry, path: create_file,
-                                           mtime: Time.now,
-                                           size: block_size)
-        middle_entry = create(:file_entry, path: create_file,
-                                           mtime: Time.now,
+                                           mtime: 1.day.ago,
                                            size: block_size)
         newest_entry = create(:file_entry, path: create_file,
-                                           mtime: Time.now,
+                                           mtime: 1.minute.ago,
+                                           size: block_size)
+        middle_entry = create(:file_entry, path: create_file,
+                                           mtime: 1.hour.ago,
                                            size: block_size)
 
         blocks_available = Settings.file_manager.min_free_space / block_size
