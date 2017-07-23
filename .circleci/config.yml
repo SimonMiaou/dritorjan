@@ -5,8 +5,11 @@ jobs:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
+      - checkout
       - run: mv config/database.example.yml config/database.yml
-      - run: bundle exec rake database:create database:create_tables
+      - run:
+        name: Setup database
+        command: bundle exec rake database:create database:create_tables
 
 # machine:
 #   ruby:
