@@ -5,10 +5,19 @@ jobs:
       - image: circleci/ruby:2.4.1
     steps:
       - checkout
-      - run: mv config/database.example.yml config/database.yml
+      # Restore bundle cache
+      - type: cache-restore
+        key: bundle-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install gems
           command: bundle install
+      - type: cache-save
+        key: bundle-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+      - run:
+          name: Configure database settings
+          command: mv config/database.example.yml config/database.yml
       - run:
           name: Setup database
           command: bundle exec rake database:create database:create_tables
