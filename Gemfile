@@ -20,7 +20,7 @@ gem 'unix-crypt'
 
 group :development, :test do
   gem 'byebug'
-  gem 'rubocop', require: false, github: 'bbatsov/rubocop'
+  gem 'rubocop', require: false, git: 'https://github.com/bbatsov/rubocop'
 end
 
 group :test do
