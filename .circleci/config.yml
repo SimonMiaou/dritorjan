@@ -19,15 +19,3 @@ jobs:
       - run:
           name: Check code style
           command: bundle exec rubocop
-
-# machine:
-#   ruby:
-#     version: 2.4.1
-# database:
-#   override:
-#     - mv config/database.example.yml config/database.yml
-#     - bundle exec rake database:create
-#     - bundle exec rake database:create_tables
-# test:
-#   post:
-#     - bundle exec rubocop
