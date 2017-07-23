@@ -8,8 +8,8 @@ jobs:
       - checkout
       - run: mv config/database.example.yml config/database.yml
       - run:
-        name: Setup database
-        command: bundle exec rake database:create database:create_tables
+          name: Setup database
+          command: bundle exec rake database:create database:create_tables
 
 # machine:
 #   ruby:
