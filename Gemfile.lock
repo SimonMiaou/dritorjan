@@ -110,7 +110,6 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   addressable
-  bundler
   byebug
   config
   factory_girl
