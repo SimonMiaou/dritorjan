@@ -6,8 +6,8 @@ jobs:
       - image: circleci/ruby:2.4.1
     steps:
       - mv config/database.example.yml config/database.yml
-      - bundle exec rake database:create
-      - bundle exec rake database:create_tables
+      - run: bundle exec rake database:create
+      - run: bundle exec rake database:create_tables
 
 # machine:
 #   ruby:
