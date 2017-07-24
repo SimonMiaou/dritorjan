@@ -24,7 +24,7 @@ jobs:
           key: bundle-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install gems
-          command: bundle install
+          command: bundle install --path vendor/bundle
       - save_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
           paths:
