@@ -37,13 +37,3 @@ bundle exec sidekiq -r ./sidekiq_requires.rb
 ```bash
 bundle exec rackup -o 0.0.0.0
 ```
-
-## config.json
-```json
-{
-  "directories" : ["/path/to/scan"],
-  "root_path" : "/",
-  "min_free_space" : 10000000000,
-  "auto_remove" : ["basename = 'file_to_remove'"]
-}
-```
