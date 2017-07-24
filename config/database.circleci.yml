@@ -4,4 +4,4 @@ test:
   host: 127.0.0.1
   pool: 30
   reaping_frequency: 60
-  username: myapp
+  username: dritorjan
