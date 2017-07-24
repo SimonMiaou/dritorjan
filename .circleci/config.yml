@@ -5,11 +5,21 @@ jobs:
       - image: circleci/ruby:2.4.1
         environment:
           - RACK_ENV=test
-      - image: postgres:9.5
+      - image: circleci/postgres:9.5-alpine
         environment:
-          - POSTGRES_DB=dritorjan_test
+          POSTGRES_USER: myapp
+          POSTGRES_DB: dritorjan_test
+          POSTGRES_PASSWORD: ''
     steps:
       - checkout
+      - run:
+          name: Install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      # - run:
+      #     name: Install System Dependencies
+      #     command: apt-get update -qq && apt-get install -y postgresql
       - restore_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
       - run:
@@ -22,6 +32,9 @@ jobs:
       - run:
           name: Configure database settings
           command: mv config/database.circleci.yml config/database.yml
+      - run:
+          name: Wait for database
+          command: dockerize -wait tcp://localhost:5433 -timeout 1m
       - run:
           name: Setup database
           command: bundle exec rake database:create database:create_tables
