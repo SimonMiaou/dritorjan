@@ -2,6 +2,5 @@ test:
   adapter: postgresql
   database: dritorjan_test
   pool: 30
-  port: 5433
   reaping_frequency: 60
   username: myapp
