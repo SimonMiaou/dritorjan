@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.4.1
+        environment:
+          - RACK_ENV=test
       - image: postgres:9.6
         environment:
           - POSTGRES_DB=dritorjan_test
