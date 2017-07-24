@@ -5,15 +5,15 @@ jobs:
       - image: circleci/ruby:2.4.1
     steps:
       - checkout
-      - type: cache-restore
-        key: bundle-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          key: bundle-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install gems
           command: bundle install
-      - type: cache-save
-        key: bundle-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
+      - save_cache:
+          key: bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       - run:
           name: Configure database settings
           command: mv config/database.example.yml config/database.yml
