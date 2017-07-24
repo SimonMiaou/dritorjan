@@ -9,3 +9,4 @@ test:
   database: dritorjan_test
   pool: 30
   reaping_frequency: 60
+  username: ubuntu
