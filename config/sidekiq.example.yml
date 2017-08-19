@@ -3,10 +3,6 @@
     class: Dritorjan::Jobs::FilesRemover
     description: Delete files to free disk space
     every: ['1h', first_in: '0s']
-  scan_runner:
-    class: Dritorjan::Jobs::ScanRunner
-    description: Scan folders and register files
-    every: ['1h', first_in: '0s']
   empty_directories_remover:
     class: Dritorjan::Jobs::EmptyDirectoriesRemover
     description: Remove empty directories
@@ -19,6 +15,10 @@
     class: Dritorjan::Jobs::OioioiDownloader
     description: Download mp3s from oioioi.ru
     every: ['1d', first_in: '0s']
+  scan_runner:
+    class: Dritorjan::Jobs::ScanRunner
+    description: Scan folders and register files
+    every: ['1h', first_in: '0s']
   steve_snapshotter:
     class: Dritorjan::Jobs::SteveSnapshotter
     description: Take a snapshot of Steve and save the file
