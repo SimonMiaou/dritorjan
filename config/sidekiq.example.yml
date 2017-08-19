@@ -3,8 +3,8 @@
     class: Dritorjan::Jobs::FilesRemover
     description: Delete files to free disk space
     every: ['1h', first_in: '0s']
-  files_scanner:
-    class: Dritorjan::Jobs::FilesScanner
+  scan_runner:
+    class: Dritorjan::Jobs::ScanRunner
     description: Scan folders and register files
     every: ['1h', first_in: '0s']
   empty_directories_remover:

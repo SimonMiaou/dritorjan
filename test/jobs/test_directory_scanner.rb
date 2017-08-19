@@ -1,16 +1,17 @@
 require 'test_helper'
-require 'dritorjan/jobs/files_scanner'
+require 'dritorjan/jobs/scan_runner'
 
 module Dritorjan
   module Jobs
-    class TestFilesScanner < Minitest::Test
+    class TestDirectoryScanner < Minitest::Test
       def setup
         super
         Models::Entry.destroy_all
       end
 
       def test_scan_parents_to_root_path
-        FilesScanner.new.perform
+        directory_path = File.realpath('./tmp')
+        DirectoryScanner.new.perform(directory_path)
 
         assert Models::Entry.find_by(path: '/'), 'register /'
         assert_equal 1, Models::Entry.find_by(path: '/').entries.count, 'root has only one entry'
