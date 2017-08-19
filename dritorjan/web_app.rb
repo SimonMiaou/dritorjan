@@ -1,3 +1,4 @@
+require 'dritorjan/helpers/abilities'
 require 'dritorjan/helpers/authentication'
 require 'dritorjan/helpers/format'
 require 'dritorjan/helpers/view_helpers'
@@ -16,6 +17,7 @@ module Dritorjan
 
     set :public_folder, 'dritorjan/public'
 
+    helpers Helpers::Abilities
     helpers Helpers::Authentication
     helpers Helpers::Format
     helpers Helpers::ViewHelpers

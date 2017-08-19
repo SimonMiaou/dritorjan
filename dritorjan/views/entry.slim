@@ -5,8 +5,9 @@ input id='scpCommand' value=build_scp_command(@entry)
 button class='clipboard' data-clipboard-target='#scpCommand' Copy to clipboard
 script new Clipboard('.clipboard');
 
-form action="/scan#{Addressable::URI.encode(@entry.path)}" method='post'
-  input type='submit' value='Scan'
+- if can_scan?(@entry)
+  form action="/scan#{Addressable::URI.encode(@entry.path)}" method='post'
+    input type='submit' value='Scan'
 
 hr
 

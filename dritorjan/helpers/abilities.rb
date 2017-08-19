@@ -1,19 +1,11 @@
+require 'dritorjan'
 require 'dritorjan/models/user'
 
 module Dritorjan
   module Helpers
-    module Authentication
-      def authenticate!
-        session[:last_path] = request.fullpath
-        redirect to('/login') unless session[:current_login].present?
-      end
-
-      def current_user
-        @current_user ||= Models::User.find_by login: session[:current_login]
-      end
-
-      def current_user?
-        current_user.present?
+    module Abilities
+      def can_scan?(entry)
+        Settings.file_manager.directories.any? { |path| entry.path.include?(File.realpath(path)) }
       end
     end
   end
