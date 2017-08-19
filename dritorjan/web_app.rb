@@ -63,7 +63,7 @@ module Dritorjan
       authenticate!
 
       entry = Models::Entry.find Addressable::URI.unencode(params['captures'].first)
-      Jobs::DirectoryScanner.perform_async entry.path
+      Jobs::DirectoryScanner.perform_async(entry.path) if can_scan?(entry)
 
       redirect to(entry_url(entry))
     end
