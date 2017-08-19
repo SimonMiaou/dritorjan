@@ -1,6 +1,8 @@
+require 'dritorjan/helpers/abilities'
 require 'dritorjan/helpers/authentication'
 require 'dritorjan/helpers/format'
 require 'dritorjan/helpers/view_helpers'
+require 'dritorjan/jobs/directory_scanner'
 require 'dritorjan/models/entry'
 require 'dritorjan/models/user'
 require 'net/http'
@@ -15,6 +17,7 @@ module Dritorjan
 
     set :public_folder, 'dritorjan/public'
 
+    helpers Helpers::Abilities
     helpers Helpers::Authentication
     helpers Helpers::Format
     helpers Helpers::ViewHelpers
@@ -54,6 +57,15 @@ module Dritorjan
 
       @entry = Models::Entry.find Addressable::URI.unencode(params['captures'].first)
       slim :entry
+    end
+
+    post(%r{/scan(/(.*))}) do
+      authenticate!
+
+      entry = Models::Entry.find Addressable::URI.unencode(params['captures'].first)
+      Jobs::DirectoryScanner.perform_async entry.path
+
+      redirect to(entry_url(entry))
     end
   end
 end
