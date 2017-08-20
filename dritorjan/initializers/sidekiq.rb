@@ -1,3 +1,4 @@
+require 'dritorjan/initializers/rollbar'
 require 'sidekiq'
 
 Sidekiq.configure_client do |config|
@@ -5,6 +6,7 @@ Sidekiq.configure_client do |config|
 end
 
 Sidekiq.configure_server do |config|
+  config.error_handlers << proc { |exception, _ctx_hash| Rollbar.error(exception) }
   config.redis = { namespace: 'dritorjan' }
 end
 

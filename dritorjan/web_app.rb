@@ -6,6 +6,7 @@ require 'dritorjan/jobs/directory_scanner'
 require 'dritorjan/models/entry'
 require 'dritorjan/models/user'
 require 'net/http'
+require 'rollbar/middleware/sinatra'
 require 'sinatra'
 require 'slim'
 
@@ -14,6 +15,7 @@ require 'addressable'
 module Dritorjan
   class WebApp < Sinatra::Base
     use Rack::Session::Pool
+    use Rollbar::Middleware::Sinatra
 
     set :public_folder, 'dritorjan/public'
 
