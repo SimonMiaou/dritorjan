@@ -8,6 +8,7 @@ file_manager:
 host: localhost
 oioioi:
   directory: ./oioioi
+rollbar_token:
 steve_snapshotter:
   directory: ./steve-snapshots
   url: http://uri-to-steve/?action=snapshot
