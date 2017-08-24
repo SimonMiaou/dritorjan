@@ -19,7 +19,6 @@ module Dritorjan
           file_path = "#{Settings.oioioi.directory}/#{mp3_url.match(REGEX)[1]}"
           next if File.exist?(file_path)
 
-          Dritorjan.logger.info("Downloading #{mp3_url}")
           ensure_directory_exist(File.dirname(file_path))
           download_file(mp3_url, file_path)
         end
