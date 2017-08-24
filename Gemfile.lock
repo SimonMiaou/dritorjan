@@ -72,6 +72,7 @@ GEM
       multi_json
     rr (1.2.1)
     ruby-progressbar (1.8.1)
+    rubyzip (1.2.1)
     rufus-scheduler (3.4.2)
       et-orbi (~> 1.0)
     safe_yaml (1.0.4)
@@ -126,6 +127,7 @@ DEPENDENCIES
   rollbar
   rr
   rubocop!
+  rubyzip
   sidekiq
   sidekiq-scheduler
   sinatra

@@ -19,6 +19,10 @@
     class: Dritorjan::Jobs::ScanRunner
     description: Scan folders and register files
     every: ['1h', first_in: '0s']
+  steve_snapshots_archiver:
+    class: Dritorjan::Jobs::SteveSnapshotsArchiver
+    description: Take a snapshot of Steve and save the file
+    every: ['1d', first_in: '0s']
   steve_snapshotter:
     class: Dritorjan::Jobs::SteveSnapshotter
     description: Take a snapshot of Steve and save the file
