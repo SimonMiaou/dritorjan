@@ -27,6 +27,8 @@ module Dritorjan
         else
           FileEntry.register(path)
         end
+      rescue Errno::ENOENT => e
+        Dritorjan.logger.error(e.message)
       end
 
       def dir?
