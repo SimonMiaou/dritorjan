@@ -13,12 +13,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ arch }}-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install gems
           command: bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
