@@ -15,9 +15,9 @@ Sidekiq::Testing.fake!
 Dir.mkdir('./tmp') unless Dir.exist?('./tmp')
 Dritorjan.logger = Logger.new('/dev/null')
 
-require 'factory_girl'
+require 'factory_bot'
 module Minitest
   class Test
-    include FactoryGirl::Syntax::Methods
+    include FactoryBot::Syntax::Methods
   end
 end

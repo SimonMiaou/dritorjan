@@ -1,6 +1,6 @@
 require 'dritorjan/models/entry'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :entry, class: 'Dritorjan::Models::Entry' do
     type 'Dritorjan::Models::Entry'
     path nil
