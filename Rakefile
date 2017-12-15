@@ -3,6 +3,8 @@ require_relative 'init'
 require 'rake/testtask'
 require 'rake'
 
+require 'dritorjan/initializers/airbrake'
+
 Rake::TestTask.new do |t|
   t.libs << '.'
   t.libs << 'test'

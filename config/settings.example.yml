@@ -1,3 +1,9 @@
+airbrake:
+  project_id:
+  project_key:
+  ignore_environments:
+    - development
+    - test
 file_manager:
   directories:
     - ./tmp
@@ -8,7 +14,6 @@ file_manager:
 host: localhost
 oioioi:
   directory: ./oioioi
-rollbar_token:
 steve_snapshotter:
   directory: ./steve-snapshots
   url: http://uri-to-steve/?action=snapshot
