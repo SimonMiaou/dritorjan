@@ -1,3 +1,4 @@
+require 'addressable/uri'
 require 'dritorjan'
 require 'dritorjan/initializers/sidekiq'
 require 'net/http'
@@ -40,7 +41,7 @@ module Dritorjan
       end
 
       def download_file(url, file_path)
-        file_body = Net::HTTP.get(URI.parse(URI.escape(url)))
+        file_body = Net::HTTP.get(URI.parse(Addressable::URI.escape(url)))
         File.open(file_path, 'wb') { |file| file << file_body }
       end
     end
