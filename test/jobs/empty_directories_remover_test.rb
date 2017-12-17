@@ -3,7 +3,7 @@ require 'dritorjan/jobs/empty_directories_remover'
 
 module Dritorjan
   module Jobs
-    class TestEmptyDirectoriesRemover < Minitest::Test
+    class EmptyDirectoriesRemoverTest < Minitest::Test
       def setup
         super
 

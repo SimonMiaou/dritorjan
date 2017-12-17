@@ -3,7 +3,7 @@ require 'dritorjan/jobs/steve_snapshotter'
 
 module Dritorjan
   module Jobs
-    class TestSteveSnapshotter < Minitest::Test
+    class SteveSnapshotterTest < Minitest::Test
       def setup
         super
 
