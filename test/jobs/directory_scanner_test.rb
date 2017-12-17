@@ -3,7 +3,7 @@ require 'dritorjan/jobs/scan_runner'
 
 module Dritorjan
   module Jobs
-    class TestDirectoryScanner < Minitest::Test
+    class DirectoryScannerTest < Minitest::Test
       def setup
         super
         Models::Entry.destroy_all

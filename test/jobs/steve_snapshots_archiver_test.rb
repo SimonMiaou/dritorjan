@@ -3,7 +3,7 @@ require 'dritorjan/jobs/steve_snapshots_archiver'
 
 module Dritorjan
   module Jobs
-    class TestSteveSnapshotsArchiver < Minitest::Test
+    class SteveSnapshotsArchiverTest < Minitest::Test
       def setup
         super
 

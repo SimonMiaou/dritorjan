@@ -3,7 +3,7 @@ require 'dritorjan/jobs/files_remover'
 
 module Dritorjan
   module Jobs
-    class TestFilesRemover < Minitest::Test
+    class FilesRemoverTest < Minitest::Test
       def setup
         super
 

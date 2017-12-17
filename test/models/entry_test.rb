@@ -4,7 +4,7 @@ require 'factories/entry'
 
 module Dritorjan
   module Models
-    class TestEntry < Minitest::Test
+    class EntryTest < Minitest::Test
       def setup
         super
 
@@ -82,7 +82,7 @@ module Dritorjan
       end
     end
 
-    class TestDirEntry < Minitest::Test
+    class DirEntryTest < Minitest::Test
       def setup
         super
 
@@ -131,7 +131,7 @@ module Dritorjan
       end
     end
 
-    class TestFileEntry < Minitest::Test
+    class FileEntryTest < Minitest::Test
       def test_delete_file
         Entry.destroy_all
 

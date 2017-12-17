@@ -3,7 +3,7 @@ require 'dritorjan/jobs/entries_cleaner'
 
 module Dritorjan
   module Jobs
-    class TestEntriesCleaner < Minitest::Test
+    class EntriesCleanerTest < Minitest::Test
       def setup
         super
         Models::Entry.destroy_all

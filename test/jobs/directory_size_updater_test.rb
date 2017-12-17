@@ -4,7 +4,7 @@ require 'factories/entry'
 
 module Dritorjan
   module Jobs
-    class TestDirectorySizeUpdater < Minitest::Test
+    class DirectorySizeUpdaterTest < Minitest::Test
       def setup
         super
 

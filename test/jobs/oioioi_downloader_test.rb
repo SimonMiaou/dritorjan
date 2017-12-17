@@ -3,7 +3,7 @@ require 'dritorjan/jobs/oioioi_downloader'
 
 module Dritorjan
   module Jobs
-    class TestOioioiDownloader < Minitest::Test
+    class OioioiDownloaderTest < Minitest::Test
       def setup
         super
         FileUtils.rm_rf(Settings.oioioi.directory)
