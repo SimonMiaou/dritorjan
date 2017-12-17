@@ -9,6 +9,7 @@ module Dritorjan
 
       def perform(directory_path)
         entry = Models::Entry.register(directory_path)
+        return if entry.nil?
         register_parents entry
         entry.register_content if entry.dir?
       end
