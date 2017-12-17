@@ -17,6 +17,13 @@ module Dritorjan
         assert_equal 1, Models::Entry.find_by(path: '/').entries.count, 'root has only one entry'
         refute Models::Entry.find_by(path: File.realpath('./dritorjan')), 'doesn\'t scan the hole system'
       end
+
+      def test_scan_non_existent_path
+        directory_path = './tmp/non-existent'
+        DirectoryScanner.new.perform(directory_path)
+
+        assert_equal 0, Models::Entry.count, 'Scanned nothing'
+      end
     end
   end
 end

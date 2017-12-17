@@ -31,6 +31,7 @@ module Dritorjan
       end
 
       def entries_for(directory_path)
+        return [] unless Dir.exist?(directory_path)
         Dir.entries(directory_path).reject { |path| path == '.' || path == '..' }
       end
     end

@@ -29,6 +29,7 @@ module Dritorjan
         end
       rescue Errno::ENOENT => e
         Dritorjan.logger.error(e.message)
+        nil
       end
 
       def dir?

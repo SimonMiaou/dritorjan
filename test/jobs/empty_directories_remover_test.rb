@@ -37,6 +37,14 @@ module Dritorjan
 
         assert Dir.exist?('./tmp/directory')
       end
+
+      def test_with_non_existent_path
+        FileUtils.rm_rf('./tmp')
+
+        EmptyDirectoriesRemover.new.perform
+
+        Dir.mkdir('./tmp')
+      end
     end
   end
 end
