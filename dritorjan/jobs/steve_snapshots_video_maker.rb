@@ -21,15 +21,15 @@ module Dritorjan
              key = regex[1]
 
              zip_path = "#{Settings.steve_snapshotter.directory}/#{entry}"
-             folder_path = "#{TMP_FOLDER_PATH}/#{key}"
+             tmp_folder_path = "#{TMP_FOLDER_PATH}/#{key}"
              video_output_path = "#{Settings.steve_snapshotter.directory}/#{key}.mp4"
 
              next if File.exist?(video_output_path)
 
-             Dir.mkdir(folder_path)
-             unzip(zip_path, folder_path)
-             rename_files(folder_path)
-             make_video(folder_path, video_output_path)
+             Dir.mkdir(tmp_folder_path)
+             unzip(zip_path, tmp_folder_path)
+             rename_files(tmp_folder_path)
+             make_video(tmp_folder_path, video_output_path)
            end
       end
 
