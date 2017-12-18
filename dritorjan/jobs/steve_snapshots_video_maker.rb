@@ -16,20 +16,21 @@ module Dritorjan
 
         Dir.entries(Settings.steve_snapshotter.directory)
            .each do |entry|
-          regex = entry.match(/\A(\d{4}-\d{2}-\d{2})\.zip\z/i)
-          next if regex.nil?
-          key = regex[1]
+             regex = entry.match(/\A(\d{4}-\d{2}-\d{2})\.zip\z/i)
+             next if regex.nil?
+             key = regex[1]
 
-          zip_path = "#{Settings.steve_snapshotter.directory}/#{entry}"
-          folder_path = "#{TMP_FOLDER_PATH}/#{key}"
-          video_output_path = "#{Settings.steve_snapshotter.directory}/#{key}.mp4"
+             zip_path = "#{Settings.steve_snapshotter.directory}/#{entry}"
+             folder_path = "#{TMP_FOLDER_PATH}/#{key}"
+             video_output_path = "#{Settings.steve_snapshotter.directory}/#{key}.mp4"
 
-          unzip(zip_path, folder_path)
-          rename_files(folder_path)
-          make_video(folder_path, video_output_path)
-        end
+             next if File.exist?(video_output_path)
 
-        nil # TODO: remove
+             Dir.mkdir(folder_path)
+             unzip(zip_path, folder_path)
+             rename_files(folder_path)
+             make_video(folder_path, video_output_path)
+           end
       end
 
       private
@@ -62,7 +63,7 @@ module Dritorjan
       end
 
       def make_video(input_path, output_path)
-        puts "ffmpeg -framerate 24 -i #{input_path}/%05d.jpg #{output_path}"
+        `ffmpeg -framerate 24 -i #{input_path}/%05d.jpg #{output_path}`
       end
     end
   end
