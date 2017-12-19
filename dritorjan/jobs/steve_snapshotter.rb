@@ -27,7 +27,7 @@ module Dritorjan
       end
 
       def file_name
-        "#{now.strftime('%H-%M-%S-%L')}.jpg"
+        "#{now.strftime('%Y-%m-%d-%H-%M-%S-%L')}.jpg"
       end
 
       def file_path
