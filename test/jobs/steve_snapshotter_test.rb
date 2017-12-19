@@ -8,7 +8,7 @@ module Dritorjan
         super
 
         @now = Time.now
-        @file_path = "#{Settings.steve_snapshotter.directory}/#{@now.strftime('%Y-%m-%d')}/#{@now.strftime('%H-%M-%S-%L')}.jpg"
+        @file_path = "#{Settings.steve_snapshotter.directory}/#{@now.strftime('%Y-%m-%d')}/#{@now.strftime('%Y-%m-%d-%H-%M-%S-%L')}.jpg"
 
         FileUtils.rm_rf(Settings.steve_snapshotter.directory)
       end
