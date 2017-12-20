@@ -70,6 +70,28 @@ module Dritorjan
         refute_equal scanned_at, entry.scanned_at, 'update the scanned_at'
       end
 
+      def test_register_parent_register_parent_directory_for_directories
+        Dir.mkdir('./tmp/sub') unless Dir.exist?('./tmp/sub')
+        entry = Entry.register('./tmp/sub')
+
+        assert entry.parent.nil?
+
+        entry.register_parent
+
+        assert_equal File.realpath('./tmp'), entry.reload.parent.path
+      end
+
+      def test_register_parent_register_parent_directory_for_files
+        File.open('./tmp/entry.txt', 'wb') { |file| file << Faker::Cat.name }
+        entry = Entry.register('./tmp/entry.txt')
+
+        assert entry.parent.nil?
+
+        entry.register_parent
+
+        assert_equal File.realpath('./tmp'), entry.reload.parent.path
+      end
+
       private
 
       def create_default_file
