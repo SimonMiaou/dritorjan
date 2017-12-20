@@ -61,6 +61,12 @@ module Dritorjan
       slim :entry
     end
 
+    get(%r{/scan(/(.*))}) do
+      entry = Models::Entry.find Addressable::URI.unencode(params['captures'].first)
+
+      redirect to(entry_url(entry))
+    end
+
     post(%r{/scan(/(.*))}) do
       authenticate!
 
