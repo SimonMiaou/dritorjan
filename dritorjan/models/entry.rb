@@ -41,7 +41,7 @@ module Dritorjan
       end
 
       def register_parent
-        self.class.register(dirname)
+        Entry.register(dirname)
       end
 
       private
