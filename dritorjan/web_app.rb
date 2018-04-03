@@ -6,7 +6,6 @@ require 'dritorjan/initializers/airbrake'
 require 'dritorjan/jobs/directory_scanner'
 require 'dritorjan/models/entry'
 require 'dritorjan/models/user'
-require 'net/http'
 require 'sinatra'
 require 'slim'
 
@@ -26,12 +25,6 @@ module Dritorjan
 
     get '/' do
       redirect to('/entries/')
-    end
-
-    get '/cat' do
-      body = Net::HTTP.get(URI.parse('http://random.cat/meow'))
-      json = JSON.parse(body)
-      redirect to(json['file'])
     end
 
     get '/login' do
